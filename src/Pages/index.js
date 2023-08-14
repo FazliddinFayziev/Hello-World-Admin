@@ -1,0 +1,9 @@
+export { default as AddProduct } from "./AddProduct";
+export { default as Products } from "./Products";
+export { default as Manage } from "./Manage";
+export { default as Orders } from "./Orders";
+export { default as Notes } from "./Notes";
+export { default as Error } from "./Error";
+export { default as Login } from './Login';
+export { default as Home } from './Home';
+export { default as Main } from "./Main";

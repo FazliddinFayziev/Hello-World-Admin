@@ -1,0 +1,135 @@
+:root {
+    --bg-color: #000;
+    --gradient-card: linear-gradient(50deg,
+            hwb(144 48% 0% / 0.411),
+            hsl(0, 0%, 100%),
+            hsla(197, 100%, 74%, 0.699));
+}
+
+.main__section {}
+
+.main__title__section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.main__section__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: auto;
+    grid-gap: 1rem;
+}
+
+.main_section_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 150px;
+    margin: 10px auto;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.75);
+}
+
+.main_section_box_part_one {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.item_column {
+    margin: 3px auto;
+}
+
+.main_section_box_icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    width: 30px;
+    height: 30px;
+    color: #000;
+}
+
+.main_section_box_text {}
+
+.main_section_box_title {
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.main_section_box_part_two {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+}
+
+/* GRAPH STYLES */
+.main__graph__title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px auto;
+}
+
+.both__graphs__info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: auto;
+    grid-gap: 1rem;
+}
+
+.graph_single {
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+
+/* Small Footer */
+.small__footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    font-weight: 600;
+}
+
+
+@media screen and (max-width: 950px) {
+    .main__section__container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .main_section_box {
+        width: 250px;
+        height: 120px;
+    }
+
+    .both__graphs__info {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-auto-rows: auto;
+        grid-gap: 1rem;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .main__section__container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .main_section_box {
+        width: 200px;
+        height: 100px;
+    }
+}
