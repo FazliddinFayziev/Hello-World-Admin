@@ -3,5 +3,8 @@ export { default as Sidebar } from "./Sidebar";
 export { default as WeekGraph } from "./WeekGraph";
 export { default as SocialCards } from "./SocialCards";
 export { default as SmallFooter } from "./SmallFooter";
+export { default as ImageUpload } from "./ImageUpload";
+export { default as InputUpload } from "./InputUpload";
 export { default as DashboardCards } from "./DashboardCards";
 export { default as DashboardGraph } from "./DashboardGraph";
+export { default as SizeColorInput } from "./SizeColorInput";

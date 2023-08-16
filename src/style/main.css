@@ -6,8 +6,6 @@
             hsla(197, 100%, 74%, 0.699));
 }
 
-.main__section {}
-
 .main__title__section {
     display: flex;
     justify-content: center;
@@ -57,8 +55,6 @@
     height: 30px;
     color: #000;
 }
-
-.main_section_box_text {}
 
 .main_section_box_title {
     font-weight: 600;

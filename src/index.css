@@ -8,7 +8,7 @@
     /*========== Colors ==========*/
     /*Color mode HSL(hue, saturation, lightness)*/
     --white-color: hsl(210, 32%, 99%);
-    --text-color: hsl(0, 0%, 0%);
+    --text-color: hsl(0, 0%, 14%);
     --dark-color-light: hsla(198, 100%, 71%, 0.1);
     --white-color-light: hsla(191, 100%, 50%, 0.308);
     --gradient-x: linear-gradient(90deg,
@@ -55,6 +55,7 @@ body {
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
     color: var(--text-color);
+    background-color: #f2feff;
 }
 
 a {
@@ -74,8 +75,9 @@ img {
 
 .main {
     padding-top: 5rem;
-    background-color: #f2feff;
 }
+
+/* #f2feff */
 
 /*=============== HEADER ===============*/
 .header {
