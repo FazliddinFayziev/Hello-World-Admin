@@ -34,7 +34,7 @@ const SizeColorInput = () => {
     return (
         <div className='array__input__upload'>
             <div className='upload__image__title'>
-                <h1>Size & Color</h1>
+                <h1>Color & Size</h1>
             </div>
             <div className='size__color'>
                 <div className='size__color__input__box'>

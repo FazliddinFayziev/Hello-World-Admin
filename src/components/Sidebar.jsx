@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { AiFillHome, AiOutlineShoppingCart } from "react-icons/ai";
 import { FaSitemap } from "react-icons/fa";
 import { BiSolidAddToQueue, BiNotepad } from "react-icons/bi";
+import { MdScreenshotMonitor } from "react-icons/md";
 import { BsShop } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 
 
 const sidebarLinks = [
     { icon: (<AiFillHome />), name: 'Home', link: '/' },
+    { icon: (<MdScreenshotMonitor />), name: 'Banner', link: '/banner' },
     { icon: (<FaSitemap />), name: 'Products', link: '/products' },
     { icon: (<BiSolidAddToQueue />), name: 'Add Product', link: '/addproduct' },
     { icon: (<BsShop />), name: 'All Orders', link: '/allorders' },
