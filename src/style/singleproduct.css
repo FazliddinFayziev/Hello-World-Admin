@@ -87,6 +87,237 @@
 }
 
 
+
+/* EDIT DATA */
+.edit-data-container {
+    margin: 20px auto;
+    width: 80%;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.edit-data-container h1 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.data-fields {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.data-field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 10px 0;
+}
+
+.data-field label {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #585858;
+}
+
+.data-field input,
+.data-field select,
+.data-field p {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.edit_data_buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.edit-button,
+.save-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+
+
+/* SIZE & COLOR */
+
+.edit__title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px 0;
+}
+
+.edit__title h1 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.edit__array__input__upload {
+    margin-top: 20px;
+}
+
+.edit__upload__image__title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.edit__size__color {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+    margin-top: 30px;
+}
+
+.edit__size__color__input__box {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.edit__size__color__input__box input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.edit__size__color__input__box button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.edit__color__size__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+    margin-top: 30px;
+}
+
+.edit__color__grid,
+.edit__size__grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.edit__color__item,
+.edit__size__item {
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.edit__color__item span {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 4px;
+}
+
+.edit__size__item span {
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.edit__color__item button,
+.edit__size__item button {
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    margin-left: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+
+/* EDIT DESCCRIPTION */
+
+
+.edit-description-container {
+    margin: 20px auto;
+    width: 80%;
+    text-align: center;
+}
+
+.edit-description-container h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.description-box {
+    margin-bottom: 20px;
+}
+
+.description-box h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.description-box p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.description-box textarea {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+.edit-description-container button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
 /* MEDIA */
 
 @media screen and (max-width: 950px) {
@@ -128,5 +359,12 @@
     .image-item {
         width: 90px;
         overflow: hidden;
+    }
+
+    .data-fields {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 20px;
+        margin-bottom: 20px;
     }
 }
