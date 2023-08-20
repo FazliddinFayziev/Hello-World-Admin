@@ -1,4 +1,5 @@
 export { default as Header } from "./Header";
+export { default as Banners } from "./Banners";
 export { default as Sidebar } from "./Sidebar";
 export { default as EditData } from "./EditData";
 export { default as WeekGraph } from "./WeekGraph";

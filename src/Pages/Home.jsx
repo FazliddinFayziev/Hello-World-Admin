@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 
 // Files with path (routes)
 import SingleProduct from './SingleProduct';
+import SingleBanner from './SingleBanner';
 import AddProduct from './AddProduct';
 import Products from './Products';
 import Orders from './Orders';
@@ -33,6 +34,7 @@ const Home = () => {
                 <Routes>
                     <Route path='/' element={<Main />} />
                     <Route path='/banner' element={<Banner />} />
+                    <Route path='/banner/:bannerId' element={<SingleBanner />} />
                     <Route path='/products' element={<Products />} />
                     <Route path='/products/:productId' element={<SingleProduct />} />
                     <Route path='/addproduct' element={<AddProduct />} />

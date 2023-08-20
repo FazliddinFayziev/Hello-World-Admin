@@ -2,9 +2,15 @@ import React, { useState } from 'react';
 
 const EditDescription = () => {
     const [editMode, setEditMode] = useState(false);
-    const [descUz, setDescUz] = useState('Hello');
-    const [descRu, setDescRu] = useState('');
-    const [descEn, setDescEn] = useState('');
+    const [descUz, setDescUz] = useState(`
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+    `);
+    const [descRu, setDescRu] = useState(`
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+    `);
+    const [descEn, setDescEn] = useState(`
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+    `);
 
     const handleEdit = () => {
         setEditMode(true);
@@ -22,7 +28,7 @@ const EditDescription = () => {
         <div className='edit-description-container'>
             <h1>Edit Descriptions</h1>
             <div className='description-box'>
-                <h2>Description (Uzbek)</h2>
+                <h2>Description (Uzb)</h2>
                 {editMode ? (
                     <textarea
                         value={descUz}
@@ -35,7 +41,7 @@ const EditDescription = () => {
                 )}
             </div>
             <div className='description-box'>
-                <h2>Description (Russian)</h2>
+                <h2>Description (Ru)</h2>
                 {editMode ? (
                     <textarea
                         value={descRu}
@@ -48,7 +54,7 @@ const EditDescription = () => {
                 )}
             </div>
             <div className='description-box'>
-                <h2>Description (English)</h2>
+                <h2>Description (Eng)</h2>
                 {editMode ? (
                     <textarea
                         value={descEn}

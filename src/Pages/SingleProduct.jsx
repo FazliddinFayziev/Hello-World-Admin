@@ -1,6 +1,6 @@
 import React from 'react';
 import '../style/singleproduct.css';
-import { EditData, EditDescription, EditImages, EditSizeColor } from '../components';
+import { EditData, EditDescription, EditImages, EditSizeColor, SmallFooter } from '../components';
 
 const SingleProduct = () => {
     return (
@@ -14,6 +14,17 @@ const SingleProduct = () => {
             <EditData />
             <EditSizeColor />
             <EditDescription />
+
+            <div className='save__delete__product'>
+                <div className='save__delete__product__buttons'>
+                    <button style={{ backgroundColor: "#0095ff" }}>Save All</button>
+                    <button style={{ backgroundColor: "#ff0000" }}>
+                        Delete
+                    </button>
+                </div>
+            </div>
+
+            <SmallFooter />
         </>
     );
 }

@@ -1,4 +1,5 @@
 export { default as SingleProduct } from "./SingleProduct";
+export { default as SingleBanner } from "./SingleBanner";
 export { default as AddProduct } from "./AddProduct";
 export { default as Products } from "./Products";
 export { default as Manage } from "./Manage";

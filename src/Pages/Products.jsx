@@ -2,6 +2,7 @@ import React from 'react';
 import "../style/products.css";
 import { SmallFooter } from "../components";
 import { Link } from 'react-router-dom';
+import { AiOutlineSearch } from "react-icons/ai";
 
 
 const ProductCard = ({ productId, imageSrc, name, category, price }) => {
@@ -29,6 +30,11 @@ const Products = () => {
         <>
             <div className='main__title__section'>
                 <h1>All Products</h1>
+            </div>
+            <div className='all__products__search__container'>
+                <div className='all__products__search'>
+                    <input type="text" placeholder='Search Product . . .' />
+                </div>
             </div>
             <div className="product-grid">
                 {products.map(product => (
