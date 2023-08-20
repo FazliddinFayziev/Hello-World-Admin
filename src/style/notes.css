@@ -1,0 +1,107 @@
+/* notes.css */
+.notes-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.notes__input__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px auto;
+}
+
+.notes-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 80%;
+}
+
+.notes-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+}
+
+.add-button,
+.save-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add-button:hover,
+.save-button:hover {
+    background-color: #0056b3;
+}
+
+.notes-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.note-item-container {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 30px auto;
+}
+
+.note-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.note-item p {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: justify;
+    margin: 0;
+    padding: 0;
+}
+
+.note-buttons {
+    display: flex;
+    gap: 6px;
+}
+
+.edit-button-notes,
+.delete-button-notes {
+    background-color: transparent;
+    color: #ff0000;
+    border: none;
+    padding: 6px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: color 0.3s;
+    margin: 5px;
+}
+
+.edit-button-notes {
+    margin-left: 10px;
+}
+
+.edit-button-notes:hover,
+.delete-button-notes:hover {
+    color: #c60000;
+}
+
+.note-date {
+    font-weight: 600;
+    padding: 10px;
+}
