@@ -86,3 +86,58 @@
 .total-price span {
     color: #000;
 }
+
+.orders__date {
+    margin: 10px auto;
+    font-weight: 700;
+}
+
+.closed__orders {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px auto;
+}
+
+.closed__orders__dot {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: green;
+}
+
+.closed__orders__dot.false {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: red;
+}
+
+.closed__orders p {
+    font-weight: 600;
+}
+
+.orders__icon {
+    cursor: pointer;
+}
+
+.orders__icon.rotate {
+    transform: rotate(90deg);
+    cursor: pointer;
+}
+
+@media screen and (max-width: 550px) {
+
+    .order-products {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        margin: 10px auto;
+        width: 100%;
+    }
+
+    .product-item {
+        display: flex;
+        flex-direction: column;
+        font-size: 10px;
+        font-weight: 700;
+    }
+}
