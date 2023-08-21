@@ -63,11 +63,12 @@
 
 .product-card {
     background-color: #fff;
-    border: 1px solid #ccc;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    border-color: #007bff;
+    box-shadow: 0 0 10px #719ECE;
     text-decoration: none;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
     cursor: pointer;
 }

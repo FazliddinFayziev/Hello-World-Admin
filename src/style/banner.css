@@ -12,6 +12,8 @@
     width: 230px;
     height: 300px;
     margin: 0 auto;
+    border: 1px solid #007bff;
+    border-radius: 5px;
     border-color: #007bff;
     box-shadow: 0 0 10px #719ECE;
     cursor: pointer;
