@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { AiFillHome, AiOutlineShoppingCart } from "react-icons/ai";
+import { AiFillHome, AiOutlineShoppingCart, AiOutlineQrcode } from "react-icons/ai";
 import { FaSitemap } from "react-icons/fa";
 import { BiSolidAddToQueue, BiNotepad } from "react-icons/bi";
 import { MdScreenshotMonitor } from "react-icons/md";
-import { BsShop } from "react-icons/bs";
+import { BsShop, BsQrCodeScan } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 
 
@@ -15,6 +15,8 @@ const sidebarLinks = [
     { icon: (<BsShop />), name: 'All Orders', link: '/allorders' },
     { icon: (<AiOutlineShoppingCart />), name: 'Manage Orders', link: '/manage' },
     { icon: (<BiNotepad />), name: 'Important Notes', link: '/notes' },
+    { icon: (<AiOutlineQrcode />), name: 'All QR codes', link: '/allqrcodes' },
+    { icon: (<BsQrCodeScan />), name: 'Add New QR code', link: '/addqrcodes' },
 ];
 
 const Sidebar = ({ isSidebarVisible, setIsSidebarVisible }) => {

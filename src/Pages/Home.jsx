@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router-dom';
 // Files with path (routes)
 import SingleProduct from './SingleProduct';
 import SingleBanner from './SingleBanner';
+import AllQrCodes from './AllQrCodes';
 import AddProduct from './AddProduct';
 import Products from './Products';
 import Orders from './Orders';
@@ -14,6 +15,7 @@ import Manage from './Manage';
 import Banner from './Banner';
 import Notes from './Notes';
 import Main from './Main';
+import AddQrCode from './AddQrCode';
 
 
 const Home = () => {
@@ -41,6 +43,8 @@ const Home = () => {
                     <Route path='/allorders' element={<Orders />} />
                     <Route path='/manage' element={<Manage />} />
                     <Route path='/notes' element={<Notes />} />
+                    <Route path='/allqrcodes' element={<AllQrCodes />} />
+                    <Route path='/addqrcodes' element={<AddQrCode />} />
                 </Routes>
             </main>
 
