@@ -1,6 +1,8 @@
+export { default as Error } from "./Error";
 export { default as Header } from "./Header";
 export { default as Banners } from "./Banners";
 export { default as Sidebar } from "./Sidebar";
+export { default as Loading } from "./Loading";
 export { default as EditData } from "./EditData";
 export { default as WeekGraph } from "./WeekGraph";
 export { default as EditImages } from "./EditImages";
