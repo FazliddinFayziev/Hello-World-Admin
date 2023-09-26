@@ -1,26 +1,16 @@
 import React, { useState } from 'react';
+import { useGlobalContext } from '../context/context';
 
 const EditDescription = () => {
+    const { singleItem, setSingleItem } = useGlobalContext();
+    const { descuz, descru, desceng } = singleItem;
     const [editMode, setEditMode] = useState(false);
-    const [descUz, setDescUz] = useState(`
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-    `);
-    const [descRu, setDescRu] = useState(`
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-    `);
-    const [descEn, setDescEn] = useState(`
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-    `);
 
     const handleEdit = () => {
         setEditMode(true);
     };
 
     const handleSave = () => {
-        // You can save the descriptions using API calls or state management here
-        console.log('Description (Uzbek):', descUz);
-        console.log('Description (Russian):', descRu);
-        console.log('Description (English):', descEn);
         setEditMode(false);
     };
 
@@ -31,39 +21,39 @@ const EditDescription = () => {
                 <h2>Description (Uzb)</h2>
                 {editMode ? (
                     <textarea
-                        value={descUz}
-                        onChange={(e) => setDescUz(e.target.value)}
+                        value={descuz}
+                        onChange={(e) => setSingleItem({ ...singleItem, descuz: e.target.value })}
                         rows={4}
                         placeholder='Enter description in Uzbek'
                     />
                 ) : (
-                    <p>{descUz}</p>
+                    <p>{descuz}</p>
                 )}
             </div>
             <div className='description-box'>
                 <h2>Description (Ru)</h2>
                 {editMode ? (
                     <textarea
-                        value={descRu}
-                        onChange={(e) => setDescRu(e.target.value)}
+                        value={descru}
+                        onChange={(e) => setSingleItem({ ...singleItem, descru: e.target.value })}
                         rows={4}
                         placeholder='Enter description in Russian'
                     />
                 ) : (
-                    <p>{descRu}</p>
+                    <p>{descru}</p>
                 )}
             </div>
             <div className='description-box'>
                 <h2>Description (Eng)</h2>
                 {editMode ? (
                     <textarea
-                        value={descEn}
-                        onChange={(e) => setDescEn(e.target.value)}
+                        value={desceng}
+                        onChange={(e) => setSingleItem({ ...singleItem, desceng: e.target.value })}
                         rows={4}
                         placeholder='Enter description in English'
                     />
                 ) : (
-                    <p>{descEn}</p>
+                    <p>{desceng}</p>
                 )}
             </div>
             {editMode ? (

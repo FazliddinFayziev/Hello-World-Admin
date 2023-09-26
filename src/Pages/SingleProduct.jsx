@@ -1,8 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../style/singleproduct.css';
-import { EditData, EditDescription, EditImages, EditSizeColor, SmallFooter } from '../components';
+import { EditData, EditDescription, EditImages, EditSizeColor, Error, Loading, SmallFooter } from '../components';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSingleProduct } from '../container/singleProductSlice';
+import { useParams } from 'react-router-dom';
+import { useGlobalContext } from '../context/context';
 
 const SingleProduct = () => {
+    const { setSingleItem } = useGlobalContext();
+    const { productId } = useParams();
+    const dispatch = useDispatch();
+    const { sLoading, sProduct, sError } = useSelector((state) => state.singleProduct)
+
+    useEffect(() => {
+        dispatch(fetchSingleProduct(productId));
+    }, [productId]);
+
+    useEffect(() => {
+        if (sProduct) {
+            setSingleItem({
+                name: sProduct.name,
+                price: sProduct.price,
+                option: sProduct.option,
+                category: sProduct.category,
+                size: sProduct.size,
+                images: sProduct.images,
+                colors: sProduct.colors,
+                descuz: sProduct.descuz,
+                descru: sProduct.descru,
+                desceng: sProduct.desceng,
+            });
+        }
+    }, [sProduct]);
+
+    if (sLoading) {
+        return <Loading />
+    }
+
+    if (sError) {
+        return <Error />
+    }
+
     return (
         <>
             <div className='single-product-container'>

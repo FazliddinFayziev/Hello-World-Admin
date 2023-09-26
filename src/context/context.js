@@ -1,23 +1,26 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 const AppContext = React.createContext();
 
 
 export const AppProvider = ({ children }) => {
 
-    // Text - 1
-    const home = "Home"
-
-    // Text - 2
-    const login = "Login"
-
-    // Text - 3
-    const error = "Error"
+    const [singleItem, setSingleItem] = useState({
+        name: '',
+        price: '',
+        option: '',
+        category: '',
+        size: [],
+        images: [],
+        colors: [],
+        descuz: '',
+        descru: '',
+        desceng: '',
+    });
 
     return <AppContext.Provider value={{
 
-        // export all elements
-        home, login, error
+        singleItem, setSingleItem
 
     }}>
         {children}

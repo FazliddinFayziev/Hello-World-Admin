@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
+import { useGlobalContext } from '../context/context';
+import { formatPrice } from '../functions/functions';
 
 const EditData = () => {
+    const { singleItem, setSingleItem } = useGlobalContext();
+    const { name, category, option, price } = singleItem
     const [editMode, setEditMode] = useState(false);
-    const [productName, setProductName] = useState('Product Name');
-    const [category, setCategory] = useState('Simple');
-    const [price, setPrice] = useState('100');
-    const [option, setOption] = useState('Option');
 
     const handleEditClick = () => {
         setEditMode(true);
@@ -22,15 +22,15 @@ const EditData = () => {
                 <div className='data-field'>
                     <label>Product Name</label>
                     {editMode ? (
-                        <input type='text' value={productName} onChange={(e) => setProductName(e.target.value)} />
+                        <input type='text' value={name} onChange={(e) => setSingleItem({ ...singleItem, name: e.target.value })} />
                     ) : (
-                        <p>{productName}</p>
+                        <p>{name}</p>
                     )}
                 </div>
                 <div className='data-field'>
                     <label>Category</label>
                     {editMode ? (
-                        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+                        <select value={category} onChange={(e) => setSingleItem({ ...singleItem, category: e.target.value })}>
                             <option value='Simple'>Simple</option>
                             <option value='Humble'>Humble</option>
                             <option value='Elegant'>Elegant</option>
@@ -42,15 +42,15 @@ const EditData = () => {
                 <div className='data-field'>
                     <label>Price</label>
                     {editMode ? (
-                        <input type='text' value={price} onChange={(e) => setPrice(e.target.value)} />
+                        <input type='text' value={price} onChange={(e) => setSingleItem({ ...singleItem, price: e.target.value })} />
                     ) : (
-                        <p>{price} UZS</p>
+                        <p>{price && formatPrice(price)} UZS</p>
                     )}
                 </div>
                 <div className='data-field'>
                     <label>Option</label>
                     {editMode ? (
-                        <input type='text' value={option} onChange={(e) => setOption(e.target.value)} />
+                        <input type='text' value={option} onChange={(e) => setSingleItem({ ...singleItem, option: e.target.value })} />
                     ) : (
                         <p>{option}</p>
                     )}
