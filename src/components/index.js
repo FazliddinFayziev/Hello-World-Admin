@@ -16,3 +16,4 @@ export { default as DashboardCards } from "./DashboardCards";
 export { default as DashboardGraph } from "./DashboardGraph";
 export { default as SizeColorInput } from "./SizeColorInput";
 export { default as EditDescription } from "./EditDescription";
+export { default as EditImageUpload } from "./EditImageUpload";

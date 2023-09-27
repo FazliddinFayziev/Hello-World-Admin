@@ -1,20 +1,25 @@
 import React, { useEffect } from 'react';
 import '../style/singleproduct.css';
-import { EditData, EditDescription, EditImages, EditSizeColor, Error, Loading, SmallFooter } from '../components';
+import { EditData, EditDescription, EditImageUpload, EditImages, EditSizeColor, Error, Loading, SmallFooter } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSingleProduct } from '../container/singleProductSlice';
 import { useParams } from 'react-router-dom';
 import { useGlobalContext } from '../context/context';
+import { fetchAndEditProduct } from '../container/editProductSlice';
 
 const SingleProduct = () => {
-    const { setSingleItem } = useGlobalContext();
+    const { singleItem, setSingleItem } = useGlobalContext();
     const { productId } = useParams();
-    const dispatch = useDispatch();
     const { sLoading, sProduct, sError } = useSelector((state) => state.singleProduct)
+    const { loading, error, refetch } = useSelector((state) => state.editProduct)
+    const dispatch = useDispatch();
+
+    // Getting single product
 
     useEffect(() => {
         dispatch(fetchSingleProduct(productId));
-    }, [productId]);
+        console.log(sProduct)
+    }, [productId, refetch]);
 
     useEffect(() => {
         if (sProduct) {
@@ -24,20 +29,51 @@ const SingleProduct = () => {
                 option: sProduct.option,
                 category: sProduct.category,
                 size: sProduct.size,
-                images: sProduct.images,
+                imageUrls: sProduct.images,
+                images: [],
                 colors: sProduct.colors,
                 descuz: sProduct.descuz,
                 descru: sProduct.descru,
                 desceng: sProduct.desceng,
             });
         }
-    }, [sProduct]);
+    }, [sProduct, refetch]);
 
-    if (sLoading) {
+
+    // Editing single Product
+
+    const saveAll = (e) => {
+        e.preventDefault()
+        const formData = new FormData();
+        formData.append('name', singleItem.name);
+        formData.append('price', singleItem.price);
+        formData.append('option', singleItem.option);
+        formData.append('category', singleItem.category);
+        formData.append('descuz', singleItem.descuz);
+        formData.append('descru', singleItem.descru);
+        formData.append('desceng', singleItem.desceng);
+        for (let i = 0; i < singleItem.colors.length; i++) {
+            formData.append('colors[]', singleItem.colors[i]);
+        }
+        for (let i = 0; i < singleItem.size.length; i++) {
+            formData.append('size[]', singleItem.size[i]);
+        }
+        for (let i = 0; i < singleItem.images.length; i++) {
+            formData.append('images', singleItem.images[i]);
+        }
+        for (let i = 0; i < singleItem.imageUrls.length; i++) {
+            formData.append('imageUrls[]', singleItem.imageUrls[i]);
+        }
+
+        dispatch(fetchAndEditProduct({ id: productId, data: formData }));
+    };
+
+
+    if (sLoading || loading) {
         return <Loading />
     }
 
-    if (sError) {
+    if (sError || error) {
         return <Error />
     }
 
@@ -48,6 +84,10 @@ const SingleProduct = () => {
                     <h3>Single Product</h3>
                 </div>
                 <EditImages />
+                <div className='upload__image__title'>
+                    <h4>Upload New Images</h4>
+                </div>
+                <EditImageUpload />
             </div>
             <EditData />
             <EditSizeColor />
@@ -55,7 +95,7 @@ const SingleProduct = () => {
 
             <div className='save__delete__product'>
                 <div className='save__delete__product__buttons'>
-                    <button style={{ backgroundColor: "#0095ff" }}>Save All</button>
+                    <button onClick={saveAll} style={{ backgroundColor: "#0095ff" }}>Save All</button>
                     <button style={{ backgroundColor: "#ff0000" }}>
                         Delete
                     </button>

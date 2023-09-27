@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import productSlice from "./productSlice";
 import singleProductSlice from "./singleProductSlice";
+import editProductSlice from "./editProductSlice";
 
 const store = configureStore({
     reducer: {
         products: productSlice,
-        singleProduct: singleProductSlice
+        editProduct: editProductSlice,
+        singleProduct: singleProductSlice,
     }
 })
 

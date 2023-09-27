@@ -12,6 +12,7 @@ export const AppProvider = ({ children }) => {
         category: '',
         size: [],
         images: [],
+        imageUrls: [],
         colors: [],
         descuz: '',
         descru: '',
