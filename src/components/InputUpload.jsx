@@ -1,32 +1,36 @@
 import React from 'react';
+import { useGlobalContext } from '../context/context';
 
 const InputUpload = () => {
+    const { addProduct, setAddProduct } = useGlobalContext();
+    const { name, price, option, category } = addProduct
     return (
         <div className='input-upload-container'>
             <div className='name__input__upload'>
 
                 <div className='name__input'>
                     <label htmlFor="">Product Name</label>
-                    <input className='input__data' type="text" />
+                    <input value={name} onChange={(e) => setAddProduct({ ...addProduct, name: e.target.value })} className='input__data' type="text" />
                 </div>
 
                 <div className='name__input'>
                     <label htmlFor="">Category</label>
-                    <select className='input__data' name="" id="">
-                        <option value="">Simple</option>
-                        <option value="">Humble</option>
-                        <option value="">Elegant</option>
+                    <select value={category} onChange={(e) => setAddProduct({ ...addProduct, category: e.target.value })} className='input__data' name="" id="">
+                        <option value="">Choose</option>
+                        <option value="Simple">Simple</option>
+                        <option value="Humble">Humble</option>
+                        <option value="Elegant">Elegant</option>
                     </select>
                 </div>
 
                 <div className='name__input'>
                     <label htmlFor="">Price</label>
-                    <input className='input__data' type="number" />
+                    <input value={price} onChange={(e) => setAddProduct({ ...addProduct, price: e.target.value })} className='input__data' type="number" />
                 </div>
 
                 <div className='name__input'>
                     <label htmlFor="">Option</label>
-                    <input className='input__data' type="text" />
+                    <input value={option} onChange={(e) => setAddProduct({ ...addProduct, option: e.target.value })} className='input__data' type="text" />
                 </div>
 
             </div>

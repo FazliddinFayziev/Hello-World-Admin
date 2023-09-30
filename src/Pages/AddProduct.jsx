@@ -1,26 +1,48 @@
 import React from 'react';
 import "../style/addproduct.css";
-import { Description, ImageUpload, InputUpload, SizeColorInput, SmallFooter } from '../components';
+import { Description, Error, ImageUpload, InputUpload, Loading, SizeColorInput, SmallFooter } from '../components';
 import { AiOutlineUpload } from "react-icons/ai";
-
-// images
-
-// name
-// category
-// price
-// option
-
-// color
-// size
-
-// descuz
-// descru
-// desceng
-
-
+import { useDispatch, useSelector } from 'react-redux';
+import { useGlobalContext } from '../context/context';
+import { uploadProduct } from '../container/uploadSingleProduct';
 
 
 const AddProduct = () => {
+    const { addProduct, setAddProduct } = useGlobalContext();
+    const dispatch = useDispatch();
+    const { loading, error } = useSelector((state) => state.uploadProduct)
+    const handleUploadProduct = (e) => {
+        e.preventDefault()
+        const formData = new FormData();
+        formData.append('name', addProduct.name);
+        formData.append('price', addProduct.price);
+        formData.append('option', addProduct.option);
+        formData.append('category', addProduct.category);
+        formData.append('descuz', addProduct.descuz);
+        formData.append('descru', addProduct.descru);
+        formData.append('desceng', addProduct.desceng);
+        for (let i = 0; i < addProduct.colors.length; i++) {
+            formData.append('colors[]', addProduct.colors[i]);
+        }
+        for (let i = 0; i < addProduct.size.length; i++) {
+            formData.append('size[]', addProduct.size[i]);
+        }
+        for (let i = 0; i < addProduct.images.length; i++) {
+            formData.append('images', addProduct.images[i]);
+        }
+
+        dispatch(uploadProduct({ data: formData }));
+        setAddProduct({ name: '', price: '', option: '', category: '', size: [], images: [], colors: [], descuz: '', descru: '', desceng: '', })
+    }
+
+    if (loading) {
+        return <Loading />
+    }
+
+    if (error) {
+        return <Error />
+    }
+
     return (
         <>
             <div className='main__title__section'>
@@ -56,7 +78,7 @@ const AddProduct = () => {
             </section>
 
             <div className='add__product__upload__button'>
-                <button type='submit'>
+                <button onClick={handleUploadProduct} type='submit'>
                     Upload Product
                     <AiOutlineUpload className='upload__icon' fontSize={25} />
                 </button>

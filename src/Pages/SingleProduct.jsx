@@ -3,9 +3,10 @@ import '../style/singleproduct.css';
 import { EditData, EditDescription, EditImageUpload, EditImages, EditSizeColor, Error, Loading, SmallFooter } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSingleProduct } from '../container/singleProductSlice';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useGlobalContext } from '../context/context';
 import { fetchAndEditProduct } from '../container/editProductSlice';
+import { deleteProduct } from '../container/deleteProductSlice';
 
 const SingleProduct = () => {
     const { singleItem, setSingleItem } = useGlobalContext();
@@ -13,6 +14,7 @@ const SingleProduct = () => {
     const { sLoading, sProduct, sError } = useSelector((state) => state.singleProduct)
     const { loading, error, refetch } = useSelector((state) => state.editProduct)
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     // Getting single product
 
@@ -69,6 +71,12 @@ const SingleProduct = () => {
     };
 
 
+    const handleDeleteProduct = () => {
+        dispatch(deleteProduct({ id: productId }));
+        navigate('/products')
+    }
+
+
     if (sLoading || loading) {
         return <Loading />
     }
@@ -96,7 +104,7 @@ const SingleProduct = () => {
             <div className='save__delete__product'>
                 <div className='save__delete__product__buttons'>
                     <button onClick={saveAll} style={{ backgroundColor: "#0095ff" }}>Save All</button>
-                    <button style={{ backgroundColor: "#ff0000" }}>
+                    <button onClick={handleDeleteProduct} style={{ backgroundColor: "#ff0000" }}>
                         Delete
                     </button>
                 </div>

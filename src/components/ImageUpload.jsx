@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { MdDelete } from 'react-icons/md';
+import { useGlobalContext } from '../context/context';
 
 function ImageUpload() {
+    const { addProduct, setAddProduct } = useGlobalContext();
+    const { images } = addProduct;
     const [uploadedImages, setUploadedImages] = useState([]);
     const [selectedImage, setSelectedImage] = useState(null);
     const [chosenImagePreview, setChosenImagePreview] = useState(null);
 
     const handleImageUpload = () => {
         if (selectedImage) {
+            setAddProduct({ ...addProduct, images: [...images, selectedImage] })
             setUploadedImages([...uploadedImages, chosenImagePreview]);
             setSelectedImage(null);
             setChosenImagePreview(null);
@@ -15,8 +19,9 @@ function ImageUpload() {
     };
 
     const handleImageDelete = (index) => {
-        const updatedImages = uploadedImages.filter((_, i) => i !== index);
+        const updatedImages = images.filter((_, i) => i !== index);
         setUploadedImages(updatedImages);
+        setAddProduct({ ...addProduct, images: updatedImages })
     };
 
     const handleImageSelection = (e) => {

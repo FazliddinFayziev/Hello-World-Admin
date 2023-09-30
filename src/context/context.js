@@ -5,6 +5,19 @@ const AppContext = React.createContext();
 
 export const AppProvider = ({ children }) => {
 
+    const [addProduct, setAddProduct] = useState({
+        name: '',
+        price: '',
+        option: '',
+        category: '',
+        size: [],
+        images: [],
+        colors: [],
+        descuz: '',
+        descru: '',
+        desceng: '',
+    })
+
     const [singleItem, setSingleItem] = useState({
         name: '',
         price: '',
@@ -21,7 +34,8 @@ export const AppProvider = ({ children }) => {
 
     return <AppContext.Provider value={{
 
-        singleItem, setSingleItem
+        singleItem, setSingleItem,
+        addProduct, setAddProduct,
 
     }}>
         {children}
