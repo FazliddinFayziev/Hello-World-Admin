@@ -13,6 +13,24 @@ const AddProduct = () => {
     const { loading, error } = useSelector((state) => state.uploadProduct)
     const handleUploadProduct = (e) => {
         e.preventDefault()
+
+        // Check if any required fields are empty
+        if (
+            !addProduct.name ||
+            !addProduct.price ||
+            !addProduct.option ||
+            !addProduct.category ||
+            !addProduct.descuz ||
+            !addProduct.descru ||
+            !addProduct.desceng ||
+            addProduct.colors.length === 0 ||
+            addProduct.size.length === 0 ||
+            addProduct.images.length === 0
+        ) {
+            // Display an error or return early to prevent the dispatch
+            return alert('Please fill in all required fields and upload at least one image.');
+        }
+
         const formData = new FormData();
         formData.append('name', addProduct.name);
         formData.append('price', addProduct.price);
