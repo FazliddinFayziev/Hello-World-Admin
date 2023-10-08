@@ -1,78 +1,41 @@
-import React, { useState } from 'react';
-import { SmallFooter } from "../components";
+import React, { useEffect, useState } from 'react';
+import { Error, Loading, SmallFooter } from "../components";
 import { FcNext } from 'react-icons/fc';
 import { AiOutlineShoppingCart, AiFillDelete, AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 import '../style/manage.css';
-
-const orders = [
-    {
-        cardItems: [
-            {
-                name: "Javascript T-Shirt",
-                image: "https://res.cloudinary.com/djijmzccq/image/upload/v1685875052/yellow-small_gom0xq.jpg",
-                price: 200000,
-                quantity: 2
-            },
-            {
-                name: "React T-Shirt",
-                image: "https://res.cloudinary.com/djijmzccq/image/upload/v1685871121/react-small_gvqick.jpg",
-                price: 200000,
-                quantity: 2
-            },
-            {
-                name: "React T-Shirt",
-                image: "https://res.cloudinary.com/djijmzccq/image/upload/v1685871121/react-small_gvqick.jpg",
-                price: 200000,
-                quantity: 2
-            },
-        ],
-        totalPrice: 400,
-        userInfo: {
-            userName: "Fazliddin",
-            phoneNumber: "990194515",
-            avenue: "Toshkent",
-            address: "Sergeli-7 Ibrat Mahalla"
-        },
-        order: true
-    },
-    {
-        cardItems: [
-            {
-                name: "Javascript T-Shirt",
-                image: "https://res.cloudinary.com/djijmzccq/image/upload/v1685875052/yellow-small_gom0xq.jpg",
-                price: 200000,
-                quantity: 2
-            },
-            {
-                name: "React T-Shirt",
-                image: "https://res.cloudinary.com/djijmzccq/image/upload/v1685871121/react-small_gvqick.jpg",
-                price: 200000,
-                quantity: 2
-            },
-            {
-                name: "React T-Shirt",
-                image: "https://res.cloudinary.com/djijmzccq/image/upload/v1685871121/react-small_gvqick.jpg",
-                price: 200000,
-                quantity: 2
-            },
-        ],
-        totalPrice: 400,
-        userInfo: {
-            userName: "Fazliddin",
-            phoneNumber: "990194515",
-            avenue: "Toshkent",
-            address: "Sergeli-7 Ibrat Mahalla"
-        },
-        order: false
-    }
-]
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchOrders, updateOrders, deleteOrder } from '../container/getOrdersSlice';
 
 const Manage = () => {
+
+    const { loading, orders, error, refetch } = useSelector((state) => state.orders);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchOrders())
+    }, [refetch])
+
+    const updateOrder = (id) => {
+        dispatch(updateOrders({ id }))
+    }
+
+    const deleteMyOrder = (id) => {
+        dispatch(deleteOrder({ id }))
+    }
+
     const [openIndex, setOpenIndex] = useState(null);
 
     const handleOpen = (index) => {
         setOpenIndex(index === openIndex ? null : index);
     };
+
+    if (loading) {
+        return <Loading />
+    }
+
+    if (error) {
+        return <Error />
+    }
 
     return (
         <>
@@ -83,10 +46,10 @@ const Manage = () => {
                 {orders.map((order, index) => (
                     <div className="manage__order-item" key={index}>
                         <div className='manage__closed__orders'>
-                            <div className='manage__closed__orders__delete'>
+                            <div onClick={() => deleteMyOrder(order._id)} className='manage__closed__orders__delete'>
                                 <AiFillDelete color='red' fontSize={20} />
                             </div>
-                            <div className={`${order.order ? 'manage__closed__orders__dot' : 'manage__closed__orders__dot false'}`}></div>
+                            <div className={`${order.shipped ? 'manage__closed__orders__dot' : 'manage__closed__orders__dot false'}`}></div>
                             <AiOutlineShoppingCart color='#3078ff' fontSize={20} />
                             <p>Order - {index + 1}</p>
                             <p>08/18/2023</p>
@@ -103,7 +66,13 @@ const Manage = () => {
                                     <div className="manage__order-products">
                                         {order.cardItems.map((item, itemIndex) => (
                                             <div className="manage__product-item" key={itemIndex}>
-                                                <img src={item.image} alt={item.name} />
+                                                <img
+                                                    src={item.image ? item.image : 'https://res.cloudinary.com/dcrolfqsj/image/upload/v1697507852/Question_mark__black_.svg_pn5kuf.png'}
+                                                    alt={item.name}
+                                                    onError={(e) => {
+                                                        e.target.src = 'https://res.cloudinary.com/dcrolfqsj/image/upload/v1697507852/Question_mark__black_.svg_pn5kuf.png';
+                                                    }}
+                                                />
                                                 <p>{item.name}</p>
                                                 <p>{item.price} UZS</p>
                                                 <p>Elegant</p>
@@ -120,20 +89,23 @@ const Manage = () => {
                                 <p className='manage__order__item__title'> • User Info</p>
                                 <div className="manage__order-details">
                                     <p className='manage__order__details__info'>Name:</p>
-                                    <p>{order.userInfo.userName}</p>
+                                    <p>{order.userInfo[0].userName}</p>
                                     <p className='manage__order__details__info'>Phone Number:</p>
-                                    <p>{order.userInfo.phoneNumber}</p>
+                                    <p>{order.userInfo[0].phoneNumber}</p>
                                     <p className='manage__order__details__info'>Address:</p>
-                                    <p>{order.userInfo.avenue}</p>
-                                    <p>{order.userInfo.address}</p>
+                                    <p>{order.userInfo[0].avenue}</p>
+                                    <p>{order.userInfo[0].address}</p>
                                 </div>
                                 <div className='manage__access__container'>
-                                    <div className='manage__access'>
-                                        <AiOutlineCheck color='green' fontSize={20} />
-                                    </div>
-                                    <div className='manage__access'>
-                                        <AiOutlineClose color='red' fontSize={20} />
-                                    </div>
+                                    {!order.shipped ? (
+                                        <div onClick={() => updateOrder(order._id)} className='manage__access'>
+                                            <AiOutlineCheck color='green' fontSize={20} />
+                                        </div>
+                                    ) : (
+                                        <div onClick={() => updateOrder(order._id)} className='manage__access'>
+                                            <AiOutlineClose color='red' fontSize={20} />
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         )}

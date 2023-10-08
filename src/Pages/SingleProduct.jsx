@@ -20,7 +20,6 @@ const SingleProduct = () => {
 
     useEffect(() => {
         dispatch(fetchSingleProduct(productId));
-        console.log(sProduct)
     }, [productId, refetch]);
 
     useEffect(() => {

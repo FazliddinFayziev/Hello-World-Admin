@@ -1,85 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { SmallFooter } from "../components";
+import { Error, Loading, SmallFooter } from "../components";
 import { FcNext } from 'react-icons/fc';
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import '../style/orders.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchOrders } from '../container/getOrdersSlice';
 
-const myOrders = [
-    {
-        cardItems: [
-            {
-                name: "Javascript T-Shirt",
-                image: "https://res.cloudinary.com/djijmzccq/image/upload/v1685875052/yellow-small_gom0xq.jpg",
-                price: 200000,
-                quantity: 2
-            },
-            {
-                name: "React T-Shirt",
-                image: "https://res.cloudinary.com/djijmzccq/image/upload/v1685871121/react-small_gvqick.jpg",
-                price: 200000,
-                quantity: 2
-            },
-            {
-                name: "React T-Shirt",
-                image: "https://res.cloudinary.com/djijmzccq/image/upload/v1685871121/react-small_gvqick.jpg",
-                price: 200000,
-                quantity: 2
-            },
-        ],
-        totalPrice: 400,
-        userInfo: {
-            userName: "Fazliddin",
-            phoneNumber: "990194515",
-            avenue: "Toshkent",
-            address: "Sergeli-7 Ibrat Mahalla"
-        },
-        order: true
-    },
-    {
-        cardItems: [
-            {
-                name: "Javascript T-Shirt",
-                image: "https://res.cloudinary.com/djijmzccq/image/upload/v1685875052/yellow-small_gom0xq.jpg",
-                price: 200000,
-                quantity: 2
-            },
-            {
-                name: "React T-Shirt",
-                image: "https://res.cloudinary.com/djijmzccq/image/upload/v1685871121/react-small_gvqick.jpg",
-                price: 200000,
-                quantity: 2
-            },
-            {
-                name: "React T-Shirt",
-                image: "https://res.cloudinary.com/djijmzccq/image/upload/v1685871121/react-small_gvqick.jpg",
-                price: 200000,
-                quantity: 2
-            },
-        ],
-        totalPrice: 400,
-        userInfo: {
-            userName: "Fazliddin",
-            phoneNumber: "990194515",
-            avenue: "Toshkent",
-            address: "Sergeli-7 Ibrat Mahalla"
-        },
-        order: false
-    }
-]
-
 const Orders = () => {
-    const { orders } = useSelector((state) => state.orders);
+    const { loading, orders, error } = useSelector((state) => state.orders);
     const dispatch = useDispatch();
-
 
     useEffect(() => {
         dispatch(fetchOrders())
-    }, [])
-
-    useEffect(() => {
-        console.log(orders)
     }, [])
 
     const [openIndex, setOpenIndex] = useState(null);
@@ -87,6 +19,14 @@ const Orders = () => {
     const handleOpen = (index) => {
         setOpenIndex(index === openIndex ? null : index);
     };
+
+    if (loading) {
+        return <Loading />
+    }
+
+    if (error) {
+        return <Error />
+    }
 
     return (
         <>
