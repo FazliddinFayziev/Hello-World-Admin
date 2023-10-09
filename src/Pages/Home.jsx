@@ -45,7 +45,6 @@ const Home = () => {
                     <Route path='/notes' element={<Notes />} />
                     <Route path='/allqrcodes' element={<AllQrCodes />} />
                     <Route path='/addqrcodes' element={<AddQrCode />} />
-                    <Route path='/check' element={<Cart />} />
                 </Routes>
             </main>
 

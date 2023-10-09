@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Error, Loading, SmallFooter } from "../components";
+import { Cart, Error, Loading, SmallFooter } from "../components";
 import { FcNext } from 'react-icons/fc';
 import { AiOutlineShoppingCart, AiFillDelete, AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 import '../style/manage.css';
@@ -8,6 +8,8 @@ import { fetchOrders, updateOrders, deleteOrder } from '../container/getOrdersSl
 
 const Manage = () => {
 
+    const [showCart, setShowCart] = useState(false);
+    const [deleteId, setDeleteId] = useState('');
     const { loading, orders, error, refetch } = useSelector((state) => state.orders);
     const dispatch = useDispatch();
 
@@ -20,6 +22,7 @@ const Manage = () => {
     }
 
     const deleteMyOrder = (id) => {
+        setShowCart(false)
         dispatch(deleteOrder({ id }))
     }
 
@@ -37,6 +40,10 @@ const Manage = () => {
         return <Error />
     }
 
+    if (showCart) {
+        return <Cart setShowCart={setShowCart} deleteId={deleteId} deleteMyOrder={deleteMyOrder} />
+    }
+
     return (
         <>
             <div className='manage__orders__main__title'>
@@ -46,7 +53,7 @@ const Manage = () => {
                 {orders.map((order, index) => (
                     <div className="manage__order-item" key={index}>
                         <div className='manage__closed__orders'>
-                            <div onClick={() => deleteMyOrder(order._id)} className='manage__closed__orders__delete'>
+                            <div onClick={() => { setShowCart(true); setDeleteId(order._id) }} className='manage__closed__orders__delete'>
                                 <AiFillDelete color='red' fontSize={20} />
                             </div>
                             <div className={`${order.shipped ? 'manage__closed__orders__dot' : 'manage__closed__orders__dot false'}`}></div>

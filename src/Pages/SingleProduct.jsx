@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../style/singleproduct.css';
-import { EditData, EditDescription, EditImageUpload, EditImages, EditSizeColor, Error, Loading, SmallFooter } from '../components';
+import { Cart, EditData, EditDescription, EditImageUpload, EditImages, EditSizeColor, Error, Loading, SmallFooter } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSingleProduct } from '../container/singleProductSlice';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -9,6 +9,7 @@ import { fetchAndEditProduct } from '../container/editProductSlice';
 import { deleteProduct } from '../container/deleteProductSlice';
 
 const SingleProduct = () => {
+    const [showCart, setShowCart] = useState(false);
     const { singleItem, setSingleItem } = useGlobalContext();
     const { productId } = useParams();
     const { sLoading, sProduct, sError } = useSelector((state) => state.singleProduct)
@@ -82,6 +83,10 @@ const SingleProduct = () => {
 
     if (sError || error) {
         return <Error />
+    }
+
+    if (showCart) {
+        return <Cart />
     }
 
     return (
