@@ -71,8 +71,9 @@ const SingleProduct = () => {
     };
 
 
-    const handleDeleteProduct = () => {
-        dispatch(deleteProduct({ id: productId }));
+    const handleDeleteProduct = (id) => {
+        setShowCart(false)
+        dispatch(deleteProduct({ id }));
         navigate('/products')
     }
 
@@ -86,7 +87,7 @@ const SingleProduct = () => {
     }
 
     if (showCart) {
-        return <Cart />
+        return <Cart setShowCart={setShowCart} deleteId={productId} deleteFunction={handleDeleteProduct} />
     }
 
     return (
@@ -108,7 +109,7 @@ const SingleProduct = () => {
             <div className='save__delete__product'>
                 <div className='save__delete__product__buttons'>
                     <button onClick={saveAll} style={{ backgroundColor: "#0095ff" }}>Save All</button>
-                    <button onClick={handleDeleteProduct} style={{ backgroundColor: "#ff0000" }}>
+                    <button onClick={() => setShowCart(true)} style={{ backgroundColor: "#ff0000" }}>
                         Delete
                     </button>
                 </div>

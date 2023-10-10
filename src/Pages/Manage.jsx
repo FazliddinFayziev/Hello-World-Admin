@@ -41,7 +41,7 @@ const Manage = () => {
     }
 
     if (showCart) {
-        return <Cart setShowCart={setShowCart} deleteId={deleteId} deleteMyOrder={deleteMyOrder} />
+        return <Cart setShowCart={setShowCart} deleteId={deleteId} deleteFunction={deleteMyOrder} />
     }
 
     return (

@@ -1,34 +1,40 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-const Data = [
-    {
-        id: 1,
-        image: 'https://res.cloudinary.com/djijmzccq/image/upload/v1685798280/small-js_ruslcz.png',
-        category: "Simple",
-    },
-    {
-        id: 2,
-        image: 'https://res.cloudinary.com/djijmzccq/image/upload/v1685856151/react-small-removebg-preview_ueegk6.png',
-        category: "Humble",
-    },
-    {
-        id: 3,
-        image: 'https://res.cloudinary.com/djijmzccq/image/upload/v1685856258/small-removebg-preview_zedakx.png',
-        category: "Elegant",
-    },
-];
+import { fetchBanner } from '../container/bannerSlice';
+import Loading from './Loading';
+import Error from './Error';
 
 const Banners = () => {
+
+    const dispatch = useDispatch();
+    const { loading, banners, error } = useSelector((state) => state.banner);
+
+    useEffect(() => {
+        dispatch(fetchBanner())
+    }, [])
+
+    useEffect(() => {
+        console.log(banners)
+    }, [])
+
+    if (loading) {
+        return <Loading />
+    }
+
+    if (error) {
+        <Error />
+    }
+
     return (
         <>
             <div className='all__banners'>
-                {Data.map((banner, index) => {
+                {banners.map((banner, index) => {
                     return (
-                        <Link to={`${banner.id}`} key={index} className='single__banner__container'>
+                        <Link to={`${banner._id}`} key={index} className='single__banner__container'>
                             <div className='banner__image__container'>
                                 <div className='single__banner__image'>
-                                    <img src={`${banner.image}`} alt="banner-image" />
+                                    <img src={`${banner.images && banner.images[0]}`} alt="banner-image" />
                                 </div>
                             </div>
                             <div className='banner__text'>
