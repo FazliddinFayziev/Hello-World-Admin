@@ -5,6 +5,7 @@ import axios from "../api/axios";
 const initialState = {
     loading: false,
     refetch: false,
+    singleBanner: [],
     banners: [],
     error: '',
 }
@@ -12,6 +13,12 @@ const initialState = {
 // Get banner
 export const fetchBanner = createAsyncThunk('banner/api', async () => {
     return axios.get("/getbanner").then((res) => res.data)
+})
+
+// Get Single Banner
+export const fetchSingleBanner = createAsyncThunk('singleBanner/api', async (payload) => {
+    const { id } = payload
+    return axios.get(`/getsinglebanner?bannerId=${id}`).then((res) => res.data)
 })
 
 // update Orders
@@ -33,7 +40,7 @@ const bannerSlice = createSlice({
     initialState,
     extraReducers: (builder) => {
 
-        // Get orders
+        // Get banners
         builder.addCase(fetchBanner.pending, (state) => {
             state.loading = true
         });
@@ -47,6 +54,22 @@ const bannerSlice = createSlice({
             state.banners = []
             state.error = action.error.message
         });
+
+        // Get Single Banner
+        builder.addCase(fetchSingleBanner.pending, (state) => {
+            state.loading = true
+        });
+        builder.addCase(fetchSingleBanner.fulfilled, (state, action) => {
+            state.loading = false
+            state.singleBanner = action.payload
+            state.error = ''
+        });
+        builder.addCase(fetchSingleBanner.rejected, (state, action) => {
+            state.loading = false
+            state.singleBanner = []
+            state.error = action.error.message
+        });
+
 
     }
 })

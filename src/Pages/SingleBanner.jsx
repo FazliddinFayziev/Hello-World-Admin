@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../style/singlebanner.css';
 import { SmallFooter } from '../components';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { fetchSingleBanner } from '../container/bannerSlice';
 
 const SingleBanner = () => {
     const [isEditing, setIsEditing] = useState(false);
@@ -8,6 +11,19 @@ const SingleBanner = () => {
     const [number, setNumber] = useState('123');
     const [category, setCategory] = useState('Category Name');
     const [link, setLink] = useState('https://example.com');
+
+    const { bannerId } = useParams();
+    const dispatch = useDispatch();
+    const { loading, singleBanner, error } = useSelector((state) => state.banner)
+
+
+    useEffect(() => {
+        dispatch(fetchSingleBanner({ id: bannerId }))
+    }, [])
+
+    useEffect(() => {
+        console.log(singleBanner)
+    }, [])
 
     const handleEditToggle = () => {
         setIsEditing(!isEditing);
@@ -31,7 +47,7 @@ const SingleBanner = () => {
                             <span>Choose Image</span>
                         </label>
                     ) : (
-                        <img src='https://res.cloudinary.com/djijmzccq/image/upload/v1685856151/react-small-removebg-preview_ueegk6.png' alt='Banner' />
+                        <img src={singleBanner.images && singleBanner.images[0]} alt='Banner' />
                     )
                 }
             </div>
