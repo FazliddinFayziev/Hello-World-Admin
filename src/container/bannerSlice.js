@@ -5,7 +5,7 @@ import axios from "../api/axios";
 const initialState = {
     loading: false,
     refetch: false,
-    singleBanner: [],
+    sBanner: [],
     banners: [],
     error: '',
 }
@@ -61,12 +61,12 @@ const bannerSlice = createSlice({
         });
         builder.addCase(fetchSingleBanner.fulfilled, (state, action) => {
             state.loading = false
-            state.singleBanner = action.payload
+            state.sBanner = action.payload
             state.error = ''
         });
         builder.addCase(fetchSingleBanner.rejected, (state, action) => {
             state.loading = false
-            state.singleBanner = []
+            state.sBanner = []
             state.error = action.error.message
         });
 

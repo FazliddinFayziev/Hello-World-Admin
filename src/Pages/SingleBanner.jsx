@@ -1,29 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import '../style/singlebanner.css';
-import { SmallFooter } from '../components';
+import { Error, Loading, SmallFooter } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchSingleBanner } from '../container/bannerSlice';
+import { useGlobalContext } from '../context/context';
 
 const SingleBanner = () => {
+    const { singleBanner, setSingleBanner } = useGlobalContext();
     const [isEditing, setIsEditing] = useState(false);
-    const [title, setTitle] = useState('Title Text');
-    const [number, setNumber] = useState('123');
-    const [category, setCategory] = useState('Category Name');
-    const [link, setLink] = useState('https://example.com');
 
     const { bannerId } = useParams();
     const dispatch = useDispatch();
-    const { loading, singleBanner, error } = useSelector((state) => state.banner)
-
+    const { loading, sBanner, error } = useSelector((state) => state.banner)
 
     useEffect(() => {
         dispatch(fetchSingleBanner({ id: bannerId }))
-    }, [])
+    }, [bannerId])
 
     useEffect(() => {
-        console.log(singleBanner)
-    }, [])
+        if (sBanner) {
+            setSingleBanner({
+                id: sBanner._id,
+                category: sBanner.category,
+                images: sBanner.images,
+                link: sBanner.link,
+                number: sBanner.number,
+                text: sBanner.text
+            })
+        }
+    }, [bannerId, sBanner])
 
     const handleEditToggle = () => {
         setIsEditing(!isEditing);
@@ -32,6 +38,14 @@ const SingleBanner = () => {
     const handleSave = () => {
         setIsEditing(false);
     };
+
+    if (loading) {
+        return <Loading />
+    }
+
+    if (error) {
+        return <Error />
+    }
 
     return (
         <div className='single-banner-container'>
@@ -58,11 +72,11 @@ const SingleBanner = () => {
                         {isEditing ? (
                             <input
                                 type='text'
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
+                                value={singleBanner.text}
+                                onChange={(e) => setSingleBanner({ ...singleBanner, text: e.target.value })}
                             />
                         ) : (
-                            <span>{title}</span>
+                            <span>{singleBanner.text}</span>
                         )}
                     </div>
                     <div className='detail-item'>
@@ -70,11 +84,11 @@ const SingleBanner = () => {
                         {isEditing ? (
                             <input
                                 type='text'
-                                value={number}
-                                onChange={(e) => setNumber(e.target.value)}
+                                value={singleBanner.number}
+                                onChange={(e) => setSingleBanner({ ...singleBanner, number: e.target.value })}
                             />
                         ) : (
-                            <span>{number}</span>
+                            <span>{singleBanner.number}</span>
                         )}
                     </div>
                     <div className='detail-item'>
@@ -82,11 +96,11 @@ const SingleBanner = () => {
                         {isEditing ? (
                             <input
                                 type='text'
-                                value={category}
-                                onChange={(e) => setCategory(e.target.value)}
+                                value={singleBanner.category}
+                                onChange={(e) => setSingleBanner({ ...singleBanner, category: e.target.value })}
                             />
                         ) : (
-                            <span>{category}</span>
+                            <span>{singleBanner.category}</span>
                         )}
                     </div>
                     <div className='detail-item'>
@@ -94,11 +108,11 @@ const SingleBanner = () => {
                         {isEditing ? (
                             <input
                                 type='text'
-                                value={link}
-                                onChange={(e) => setLink(e.target.value)}
+                                value={singleBanner.link}
+                                onChange={(e) => setSingleBanner({ ...singleBanner, link: e.target.value })}
                             />
                         ) : (
-                            <a href={link}>{link}</a>
+                            <a href={singleBanner.link}>{singleBanner.link}</a>
                         )}
                     </div>
                 </div>

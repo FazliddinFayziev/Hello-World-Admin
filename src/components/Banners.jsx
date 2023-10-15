@@ -14,10 +14,6 @@ const Banners = () => {
         dispatch(fetchBanner())
     }, [])
 
-    useEffect(() => {
-        console.log(banners)
-    }, [])
-
     if (loading) {
         return <Loading />
     }

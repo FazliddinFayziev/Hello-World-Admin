@@ -32,10 +32,20 @@ export const AppProvider = ({ children }) => {
         desceng: '',
     });
 
+    const [singleBanner, setSingleBanner] = useState({
+        id: '',
+        category: '',
+        images: [],
+        link: '',
+        number: '',
+        text: ''
+    })
+
     return <AppContext.Provider value={{
 
         singleItem, setSingleItem,
         addProduct, setAddProduct,
+        singleBanner, setSingleBanner,
 
     }}>
         {children}
