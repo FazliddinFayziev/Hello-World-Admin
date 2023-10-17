@@ -36,6 +36,7 @@ export const AppProvider = ({ children }) => {
         id: '',
         category: '',
         images: [],
+        imageUrls: [],
         link: '',
         number: '',
         text: ''

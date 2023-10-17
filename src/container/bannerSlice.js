@@ -21,17 +21,12 @@ export const fetchSingleBanner = createAsyncThunk('singleBanner/api', async (pay
     return axios.get(`/getsinglebanner?bannerId=${id}`).then((res) => res.data)
 })
 
-// update Orders
-// export const updateOrders = createAsyncThunk('updateorders/api', async (payload) => {
-//     const { id } = payload
-//     return axios.put(`/updatecart?cardId=${id}`).then((res) => res.data)
-// })
-
-// // Delete orders
-// export const deleteOrder = createAsyncThunk('deleteorder/api', async (payload) => {
-//     const { id } = payload
-//     return axios.delete(`/deletecard?cardId=${id}`).then((res) => res.data)
-// })
+// Edit Banner 
+export const fetchAndEditBanner = createAsyncThunk('editBanner/api', async (payload) => {
+    const { id, data } = payload;
+    const response = await axios.put(`/editbanner?bannerId=${id}`, data);
+    return response.data;
+});
 
 
 // Slice 
@@ -67,6 +62,21 @@ const bannerSlice = createSlice({
         builder.addCase(fetchSingleBanner.rejected, (state, action) => {
             state.loading = false
             state.sBanner = []
+            state.error = action.error.message
+        });
+
+
+        // Edit Banner
+        builder.addCase(fetchAndEditBanner.pending, (state) => {
+            state.loading = true
+        });
+        builder.addCase(fetchAndEditBanner.fulfilled, (state) => {
+            state.loading = false
+            state.refetch = !state.refetch
+            state.error = ''
+        });
+        builder.addCase(fetchAndEditBanner.rejected, (state, action) => {
+            state.loading = false
             state.error = action.error.message
         });
 
