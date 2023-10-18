@@ -6,12 +6,14 @@ import uploadSingleProduct from "./uploadSingleProduct";
 import deleteProductSlice from "./deleteProductSlice";
 import getOrdersSlice from "./getOrdersSlice";
 import bannerSlice from "./bannerSlice";
+import qrcodeSlice from "./qrcodeSlice";
 
 const store = configureStore({
     reducer: {
         banner: bannerSlice,
-        products: productSlice,
+        qrcodes: qrcodeSlice,
         orders: getOrdersSlice,
+        products: productSlice,
         editProduct: editProductSlice,
         singleProduct: singleProductSlice,
         deleteProduct: deleteProductSlice,

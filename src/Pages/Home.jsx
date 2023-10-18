@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import { Cart, Sidebar } from '../components';
+import { Sidebar } from '../components';
 import Header from '../components/Header';
 import { Route, Routes } from 'react-router-dom';
 
@@ -16,6 +16,7 @@ import Manage from './Manage';
 import Banner from './Banner';
 import Notes from './Notes';
 import Main from './Main';
+import SingleQrCode from './SingleQrCode';
 
 
 const Home = () => {
@@ -44,6 +45,7 @@ const Home = () => {
                     <Route path='/manage' element={<Manage />} />
                     <Route path='/notes' element={<Notes />} />
                     <Route path='/allqrcodes' element={<AllQrCodes />} />
+                    <Route path='/allqrcodes/:qrcodeId' element={<SingleQrCode />} />
                     <Route path='/addqrcodes' element={<AddQrCode />} />
                 </Routes>
             </main>

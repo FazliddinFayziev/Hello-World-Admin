@@ -1,0 +1,147 @@
+.qrcode__container {
+    width: 100%;
+    margin-top: 60px;
+}
+
+.qrcode__box {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+    margin: 20px auto;
+}
+
+.qrcode__single__box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 150px;
+    margin: 10px auto;
+    cursor: pointer;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    border-color: #007bff;
+    box-shadow: 0 0 10px #719ECE;
+    text-decoration: none;
+    color: #000;
+}
+
+.qrcode__center__letter h1 {
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    border-color: #007bff;
+    box-shadow: 0 0 10px #719ECE;
+    padding: 10px 20px;
+    color: #007bff;
+}
+
+.qrcode__center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+
+
+/* SINGLE QRCODE PAGE */
+
+.single-qrcode {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    border-color: #007bff;
+    box-shadow: 0 0 10px #719ECE;
+    border-radius: 5px;
+}
+
+.qr-code {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.logo-letter {
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    border-color: #007bff;
+    box-shadow: 0 0 10px #719ECE;
+    padding: 20px;
+    margin: 20px;
+    font-weight: 800;
+}
+
+.single-qrcode .edit-button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.single-qrcode input {
+    border: 1px solid #ddd;
+    padding: 5px;
+    margin: 5px;
+}
+
+.icon-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    margin-top: 50px;
+}
+
+.icon-container a {
+    color: #333;
+    text-decoration: none;
+    margin: 10px;
+    font-size: 24px;
+}
+
+.single-qrcode button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* MEDIA */
+
+
+@media (min-width: 576px) {
+    .qrcode__box {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .icon-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+    .qrcode__box {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .icon-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .qrcode__box {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .icon-container {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
