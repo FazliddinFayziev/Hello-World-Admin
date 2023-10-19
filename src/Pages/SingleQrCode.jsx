@@ -1,66 +1,48 @@
-import React, { useState } from 'react';
-import { FaInstagram, FaTelegram, FaFacebook, FaTwitter, FaGithub, FaLinkedin, FaGlobe, FaYoutube } from 'react-icons/fa'; // Import the icons you need
+import React, { useEffect, useState } from 'react';
 import '../style/qrcode.css';
-import { SmallFooter } from '../components';
+import { Error, Loading, RenderIcons, SmallFooter } from '../components';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSingleQrcode } from '../container/qrcodeSlice';
+import { useParams } from 'react-router-dom';
+import { useGlobalContext } from '../context/context';
 
 const SingleQrCode = () => {
+    const { singleQrcode, setSingleQrcode } = useGlobalContext();
     const [isEditing, setIsEditing] = useState(false);
+    const { qrcodeId } = useParams();
+    const dispatch = useDispatch();
+    const { loading, sqrcode, error } = useSelector((state) => state.qrcodes)
 
-    const [data, setData] = useState({
-        logoLetter: "F",
-        text: "Hi, I am Fazliddin !",
-        smallText: "I am Software engineer",
-        instagram: "https://www.instagram.com/",
-        telegram: "https://t.me/",
-        facebook: "https://www.facebook.com/",
-        twitter: "https://twitter.com/",
-        github: "https://github.com/",
-        linkedIn: "https://www.linkedin.com/",
-        website: "https://www.yourwebsite.com/",
-        youtube: "https://www.youtube.com/",
-    });
+    useEffect(() => {
+        dispatch(fetchSingleQrcode({ id: qrcodeId }))
+    }, [qrcodeId])
+
+    useEffect(() => {
+        if (sqrcode) {
+            setSingleQrcode({
+                id: sqrcode._id,
+                text: sqrcode.text,
+                icons: sqrcode.icons || [],
+                smallText: sqrcode.smallText,
+                logoLetter: sqrcode.logoLetter,
+            })
+        }
+        console.log(singleQrcode)
+    }, [qrcodeId, sqrcode])
+
+    const { icons } = singleQrcode
 
     const handleEdit = () => {
         setIsEditing(!isEditing);
     };
 
-    const handleChange = (e, field) => {
-        setData({
-            ...data,
-            [field]: e.target.value,
-        });
-    };
+    if (loading) {
+        return <Loading />
+    }
 
-    const renderIcons = () => {
-        return (
-            <div className="icon-container">
-                <a href={data.instagram} target="_blank" rel="noopener noreferrer">
-                    <FaInstagram />
-                </a>
-                <a href={data.telegram} target="_blank" rel="noopener noreferrer">
-                    <FaTelegram />
-                </a>
-                <a href={data.facebook} target="_blank" rel="noopener noreferrer">
-                    <FaFacebook />
-                </a>
-                <a href={data.twitter} target="_blank" rel="noopener noreferrer">
-                    <FaTwitter />
-                </a>
-                <a href={data.github} target="_blank" rel="noopener noreferrer">
-                    <FaGithub />
-                </a>
-                <a href={data.linkedIn} target="_blank" rel="noopener noreferrer">
-                    <FaLinkedin />
-                </a>
-                <a href={data.website} target="_blank" rel="noopener noreferrer">
-                    <FaGlobe />
-                </a>
-                <a href={data.youtube} target="_blank" rel="noopener noreferrer">
-                    <FaYoutube />
-                </a>
-            </div>
-        );
-    };
+    if (error) {
+        return <Error />
+    }
 
     return (
         <>
@@ -69,40 +51,43 @@ const SingleQrCode = () => {
             </div>
             <div className="single-qrcode">
                 <div className="qr-code">
+                    <p>{singleQrcode.id}</p>
                     <div className="logo-letter">
                         {isEditing ? (
                             <input
                                 type="text"
-                                value={data.logoLetter}
-                                onChange={(e) => handleChange(e, 'logoLetter')}
+                                value={singleQrcode.logoLetter}
+                                onChange={(e) => setSingleQrcode({ ...singleQrcode, logoLetter: e.target.value })}
                             />
                         ) : (
-                            <span>{data.logoLetter}</span>
+                            <span>{singleQrcode.logoLetter}</span>
                         )}
                     </div>
                     <div className="text">
                         {isEditing ? (
                             <input
                                 type="text"
-                                value={data.text}
-                                onChange={(e) => handleChange(e, 'text')}
+                                value={singleQrcode.text}
+                                onChange={(e) => setSingleQrcode({ ...singleQrcode, text: e.target.value })}
                             />
                         ) : (
-                            <span>{data.text}</span>
+                            <span>{singleQrcode.text}</span>
                         )}
                     </div>
                     <div className="text">
                         {isEditing ? (
                             <input
                                 type="text"
-                                value={data.smallText}
-                                onChange={(e) => handleChange(e, 'smallText')}
+                                value={singleQrcode.smallText}
+                                onChange={(e) => setSingleQrcode({ ...singleQrcode, smallText: e.target.value })}
                             />
                         ) : (
-                            <span>{data.smallText}</span>
+                            <span>{singleQrcode.smallText}</span>
                         )}
                     </div>
-                    {renderIcons()}
+
+                    <RenderIcons singleQrcode={singleQrcode} setSingleQrcode={setSingleQrcode} icons={icons} isEditing={isEditing} />
+
                 </div>
                 <div className="edit-button-container">
                     <button onClick={handleEdit}>{isEditing ? 'Save' : 'Edit'}</button>

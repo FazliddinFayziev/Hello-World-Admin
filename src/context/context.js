@@ -42,10 +42,19 @@ export const AppProvider = ({ children }) => {
         text: ''
     })
 
+    const [singleQrcode, setSingleQrcode] = useState({
+        id: '',
+        text: '',
+        icons: [],
+        smallText: '',
+        logoLetter: '',
+    })
+
     return <AppContext.Provider value={{
 
         singleItem, setSingleItem,
         addProduct, setAddProduct,
+        singleQrcode, setSingleQrcode,
         singleBanner, setSingleBanner,
 
     }}>
