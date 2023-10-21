@@ -30,16 +30,15 @@ const SingleQrCode = () => {
         }
     }, [qrcodeId, sqrcode, refetch])
 
-    const handleSave = () => {
-        let readyIcons = filterIcons(singleQrcode.icons);
+    const handleSave = (e) => {
+        e.preventDefault()
         const readyQrCode = {
             logoLetter: singleQrcode.logoLetter,
             text: singleQrcode.text,
             smallText: singleQrcode.smallText,
-            icons: readyIcons[0]
+            icons: filterIcons(singleQrcode.icons)
         }
-        dispatch(fetchAndEditQrCode({ id: qrcodeId, data: readyQrCode }));
-        console.log(readyQrCode)
+        dispatch(fetchAndEditQrCode({ qrcodeId, readyQrCode }))
         setIsEditing(false)
     }
 

@@ -161,7 +161,7 @@ img {
 
 .sidebar__content {
     position: relative;
-    overflow: auto;
+    overflow-x: hidden;
     padding-top: 2rem;
 }
 

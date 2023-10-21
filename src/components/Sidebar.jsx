@@ -29,7 +29,7 @@ const Sidebar = ({ isSidebarVisible, setIsSidebarVisible }) => {
     };
 
     return (
-        < div className={`sidebar ${isSidebarVisible ? 'show-sidebar' : ''}`} id="sidebar" >
+        <div className={`sidebar ${isSidebarVisible ? 'show-sidebar' : ''}`} id="sidebar" >
             <nav className="sidebar__container">
                 {!isSidebarVisible ? (
                     <div className="sidebar__logo">

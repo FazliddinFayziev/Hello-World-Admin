@@ -20,9 +20,9 @@ export const fetchSingleQrcode = createAsyncThunk('singleqrcode/api', async (pay
     return axios.get(`/singleqrcode?qrId=${id}`).then((res) => res.data)
 })
 
-export const fetchAndEditQrCode = createAsyncThunk('editqrcode/api', async (payload) => {
-    const { id, data } = payload
-    return axios.put(`/editqrcode?idOfQrcode=${id}`, data).then((res) => res.data).catch((error) => console.log(error));
+export const fetchAndEditQrCode = createAsyncThunk('editmyqrcode/api', async (payload) => {
+    const { qrcodeId, readyQrCode } = payload
+    return axios.put(`/editqrcode?idOfQrcode=${qrcodeId}`, readyQrCode).then((res) => res.data);
 })
 
 // Slice 

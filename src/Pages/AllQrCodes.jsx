@@ -14,6 +14,14 @@ const AllQrCodes = () => {
         dispatch(fetchQrcode())
     }, [])
 
+    const filteredQrcodes = qrcodes.filter((qrcode) => {
+        if (searchTerm === "") {
+            return true;
+        } else {
+            return qrcode.text.toLowerCase().includes(searchTerm.toLowerCase());
+        }
+    });
+
     if (loading) {
         return <Loading />
     }
@@ -40,7 +48,7 @@ const AllQrCodes = () => {
 
                 <div className='qrcode__box'>
 
-                    {qrcodes.length > 0 && qrcodes.map((qrcode) => {
+                    {filteredQrcodes.length > 0 && filteredQrcodes.map((qrcode) => {
                         const { id, logo, text } = qrcode
                         return (
                             <Link to={`${id}`} key={id} className='qrcode__single__box'>

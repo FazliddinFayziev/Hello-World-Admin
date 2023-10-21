@@ -5,6 +5,12 @@ export const formatPrice = (price) => {
 };
 
 export const filterIcons = (icons) => {
-    for (let value in icons[0]) { if (icons[0][value] === "") { delete icons[0][value] } }
-    return icons
+    let obj = {}
+    for (let value in icons[0]) {
+        if (icons[0][value] !== "" && value !== "_id") {
+            obj[value] = icons[0][value]
+        }
+    }
+    return obj
 }
+
