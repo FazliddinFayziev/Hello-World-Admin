@@ -15,14 +15,28 @@ export const fetchQrcode = createAsyncThunk('qrcode/api', async () => {
     return axios.get("/qrcode").then((res) => res.data)
 })
 
+// Get Single Qr code
 export const fetchSingleQrcode = createAsyncThunk('singleqrcode/api', async (payload) => {
     const { id } = payload
     return axios.get(`/singleqrcode?qrId=${id}`).then((res) => res.data)
 })
 
+// Edit Single QR code
 export const fetchAndEditQrCode = createAsyncThunk('editmyqrcode/api', async (payload) => {
     const { qrcodeId, readyQrCode } = payload
     return axios.put(`/editqrcode?idOfQrcode=${qrcodeId}`, readyQrCode).then((res) => res.data);
+})
+
+// Upload Single QR code
+export const uploadQrCode = createAsyncThunk('uploadqrcode/api', async (payload) => {
+    const { data } = payload
+    return axios.post(`/qrcode`, data).then((res) => res.data);
+})
+
+// Delete Single QR code
+export const deleteQrcode = createAsyncThunk('deleteqrcode/api', async (payload) => {
+    const { qrcodeId } = payload
+    return axios.delete(`deleteqrcode?id=${qrcodeId}`).then((res) => res.data)
 })
 
 // Slice 
@@ -69,6 +83,30 @@ const qrCodeSlice = createSlice({
             state.refetch = !state.refetch
         });
         builder.addCase(fetchAndEditQrCode.rejected, (state, action) => {
+            state.loading = false
+            state.error = action.error.message
+        });
+
+        // Upload Single qrcode
+        builder.addCase(uploadQrCode.pending, (state) => {
+            state.loading = true
+        });
+        builder.addCase(uploadQrCode.fulfilled, (state) => {
+            state.loading = false
+        });
+        builder.addCase(uploadQrCode.rejected, (state, action) => {
+            state.loading = false
+            state.error = action.error.message
+        });
+
+        // Delete Single qrcode
+        builder.addCase(deleteQrcode.pending, (state) => {
+            state.loading = true
+        });
+        builder.addCase(deleteQrcode.fulfilled, (state) => {
+            state.refetch = !state.refetch
+        });
+        builder.addCase(deleteQrcode.rejected, (state, action) => {
             state.loading = false
             state.error = action.error.message
         });

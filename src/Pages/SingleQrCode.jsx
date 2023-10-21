@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import '../style/qrcode.css';
-import { Error, Loading, RenderIcons, SmallFooter } from '../components';
+import { Cart, Error, Loading, RenderIcons, SmallFooter } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAndEditQrCode, fetchSingleQrcode } from '../container/qrcodeSlice';
-import { useParams } from 'react-router-dom';
+import { deleteQrcode, fetchAndEditQrCode, fetchSingleQrcode } from '../container/qrcodeSlice';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useGlobalContext } from '../context/context';
 import { filterIcons } from '../functions/functions';
 
 const SingleQrCode = () => {
+    const [showCart, setShowCart] = useState(false);
     const { singleQrcode, setSingleQrcode } = useGlobalContext();
+    const navigate = useNavigate();
     const [isEditing, setIsEditing] = useState(false);
     const { qrcodeId } = useParams();
     const dispatch = useDispatch();
-    const { loading, sqrcode, refetch, error } = useSelector((state) => state.qrcodes)
+    const { loading, sqrcode, refetch, error } = useSelector((state) => state.qrcodes);
 
     useEffect(() => {
         dispatch(fetchSingleQrcode({ id: qrcodeId }))
@@ -42,12 +44,22 @@ const SingleQrCode = () => {
         setIsEditing(false)
     }
 
+    const handleDelete = () => {
+        dispatch(deleteQrcode({ qrcodeId }))
+        setShowCart(false)
+        navigate('/allqrcodes')
+    }
+
     if (loading) {
         return <Loading />
     }
 
     if (error) {
         return <Error />
+    }
+
+    if (showCart) {
+        return <Cart setShowCart={setShowCart} deleteId={qrcodeId} deleteFunction={handleDelete} />
     }
 
     return (
@@ -102,6 +114,9 @@ const SingleQrCode = () => {
                         <button onClick={handleSave}>Save</button>
                     )}
                 </div>
+            </div>
+            <div onClick={() => setShowCart(true)} className='delete__qr__code'>
+                <button>Delete QR code</button>
             </div>
             <SmallFooter />
         </>

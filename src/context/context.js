@@ -1,4 +1,14 @@
 import React, { useContext, useState } from 'react';
+import {
+    FaInstagram,
+    FaTelegram,
+    FaFacebook,
+    FaTwitter,
+    FaGithub,
+    FaLinkedin,
+    FaGlobe,
+    FaYoutube
+} from 'react-icons/fa';
 
 const AppContext = React.createContext();
 
@@ -50,13 +60,31 @@ export const AppProvider = ({ children }) => {
         logoLetter: '',
     })
 
-    return <AppContext.Provider value={{
+    const qrcodeValue = {
+        text: '',
+        smallText: '',
+        logoLetter: '',
+        icons: [
+            { name: 'instagram', icon: <FaInstagram />, value: '' },
+            { name: 'telegram', icon: <FaTelegram />, value: '' },
+            { name: 'facebook', icon: <FaFacebook />, value: '' },
+            { name: 'linkedIn', icon: <FaLinkedin />, value: '' },
+            { name: 'youtube', icon: <FaYoutube />, value: '' },
+            { name: 'twitter', icon: <FaTwitter />, value: '' },
+            { name: 'github', icon: <FaGithub />, value: '' },
+            { name: 'website', icon: <FaGlobe />, value: '' },
+        ],
+    }
 
+    const [addQrcode, setAddQrcode] = useState(qrcodeValue)
+
+    return <AppContext.Provider value={{
+        qrcodeValue,
+        addQrcode, setAddQrcode,
         singleItem, setSingleItem,
         addProduct, setAddProduct,
         singleQrcode, setSingleQrcode,
         singleBanner, setSingleBanner,
-
     }}>
         {children}
     </AppContext.Provider>

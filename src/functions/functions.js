@@ -14,3 +14,16 @@ export const filterIcons = (icons) => {
     return obj
 }
 
+export const filterAndUploadIcons = (icons) => {
+    let graph = {}
+    for (let i = 0; i < icons.length; i++) {
+        const readyObj = icons[i]
+        const key = readyObj.name
+        const value = readyObj.value
+        if (value != "") {
+            graph[key] = value
+        }
+    }
+    return graph
+}
+

@@ -8,11 +8,11 @@ import { Link } from 'react-router-dom';
 const AllQrCodes = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const dispatch = useDispatch('');
-    const { loading, qrcodes, error } = useSelector((state) => state.qrcodes)
+    const { loading, qrcodes, refetch, error } = useSelector((state) => state.qrcodes)
 
     useEffect(() => {
         dispatch(fetchQrcode())
-    }, [])
+    }, [refetch])
 
     const filteredQrcodes = qrcodes.filter((qrcode) => {
         if (searchTerm === "") {

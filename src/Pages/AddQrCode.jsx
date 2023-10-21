@@ -1,9 +1,36 @@
 import React from 'react';
 import '../style/qrcode.css';
-import { RenderIcons, SmallFooter, UploadIcons } from '../components';
+import { Error, Loading, SmallFooter, UploadIcons } from '../components';
+import { useGlobalContext } from '../context/context';
+import { filterAndUploadIcons } from '../functions/functions';
+import { useDispatch, useSelector } from 'react-redux';
+import { uploadQrCode } from '../container/qrcodeSlice';
 
 
 const AddQrCode = () => {
+
+    const { qrcodeValue, addQrcode, setAddQrcode } = useGlobalContext();
+    const dispatch = useDispatch();
+    const { loading, error } = useSelector((state) => state.qrcodes)
+
+    const uploadAll = () => {
+        const readyObj = {
+            logoLetter: addQrcode.logoLetter,
+            smallText: addQrcode.smallText,
+            text: addQrcode.text,
+            icons: filterAndUploadIcons(addQrcode.icons)
+        }
+        dispatch(uploadQrCode({ data: readyObj }))
+        setAddQrcode(qrcodeValue)
+    }
+
+    if (loading) {
+        return <Loading />
+    }
+
+    if (error) {
+        return <Error />
+    }
 
     return (
         <>
@@ -17,8 +44,8 @@ const AddQrCode = () => {
                         <input
                             style={{ border: '1px solid #007bff' }}
                             type="text"
-                            value={''}
-                        // onChange={(e) => setSingleQrcode({ ...singleQrcode, logoLetter: e.target.value })}
+                            value={addQrcode.logoLetter}
+                            onChange={(e) => setAddQrcode({ ...addQrcode, logoLetter: e.target.value })}
                         />
                     </div>
                     <div className="text">
@@ -26,8 +53,8 @@ const AddQrCode = () => {
                         <input
                             style={{ border: '1px solid #007bff' }}
                             type="text"
-                            value={''}
-                        // onChange={(e) => setSingleQrcode({ ...singleQrcode, text: e.target.value })}
+                            value={addQrcode.text}
+                            onChange={(e) => setAddQrcode({ ...addQrcode, text: e.target.value })}
                         />
                     </div>
                     <div className="text">
@@ -35,17 +62,15 @@ const AddQrCode = () => {
                         <input
                             style={{ border: '1px solid #007bff' }}
                             type="text"
-                            value={''}
-                        // onChange={(e) => setSingleQrcode({ ...singleQrcode, smallText: e.target.value })}
+                            value={addQrcode.smallText}
+                            onChange={(e) => setAddQrcode({ ...addQrcode, smallText: e.target.value })}
                         />
                     </div>
-
-                    {/* <RenderIcons singleQrcode={singleQrcode} setSingleQrcode={setSingleQrcode} icons={singleQrcode.icons} isEditing={isEditing} /> */}
-                    <UploadIcons />
+                    <UploadIcons icons={addQrcode.icons} />
 
                 </div>
                 <div className="edit-button-container">
-                    <button>Upload New QRcode</button>
+                    <button onClick={uploadAll}>Upload New QRcode</button>
                 </div>
             </div>
             <SmallFooter />
