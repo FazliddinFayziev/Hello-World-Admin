@@ -2,20 +2,21 @@ import React, { useEffect, useState } from 'react';
 import '../style/qrcode.css';
 import { Error, Loading, RenderIcons, SmallFooter } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSingleQrcode } from '../container/qrcodeSlice';
+import { fetchAndEditQrCode, fetchSingleQrcode } from '../container/qrcodeSlice';
 import { useParams } from 'react-router-dom';
 import { useGlobalContext } from '../context/context';
+import { filterIcons } from '../functions/functions';
 
 const SingleQrCode = () => {
     const { singleQrcode, setSingleQrcode } = useGlobalContext();
     const [isEditing, setIsEditing] = useState(false);
     const { qrcodeId } = useParams();
     const dispatch = useDispatch();
-    const { loading, sqrcode, error } = useSelector((state) => state.qrcodes)
+    const { loading, sqrcode, refetch, error } = useSelector((state) => state.qrcodes)
 
     useEffect(() => {
         dispatch(fetchSingleQrcode({ id: qrcodeId }))
-    }, [qrcodeId])
+    }, [qrcodeId, refetch])
 
     useEffect(() => {
         if (sqrcode) {
@@ -27,14 +28,20 @@ const SingleQrCode = () => {
                 logoLetter: sqrcode.logoLetter,
             })
         }
-        console.log(singleQrcode)
-    }, [qrcodeId, sqrcode])
+    }, [qrcodeId, sqrcode, refetch])
 
-    const { icons } = singleQrcode
-
-    const handleEdit = () => {
-        setIsEditing(!isEditing);
-    };
+    const handleSave = () => {
+        let readyIcons = filterIcons(singleQrcode.icons);
+        const readyQrCode = {
+            logoLetter: singleQrcode.logoLetter,
+            text: singleQrcode.text,
+            smallText: singleQrcode.smallText,
+            icons: readyIcons[0]
+        }
+        dispatch(fetchAndEditQrCode({ id: qrcodeId, data: readyQrCode }));
+        console.log(readyQrCode)
+        setIsEditing(false)
+    }
 
     if (loading) {
         return <Loading />
@@ -86,11 +93,15 @@ const SingleQrCode = () => {
                         )}
                     </div>
 
-                    <RenderIcons singleQrcode={singleQrcode} setSingleQrcode={setSingleQrcode} icons={icons} isEditing={isEditing} />
+                    <RenderIcons singleQrcode={singleQrcode} setSingleQrcode={setSingleQrcode} icons={singleQrcode.icons} isEditing={isEditing} />
 
                 </div>
                 <div className="edit-button-container">
-                    <button onClick={handleEdit}>{isEditing ? 'Save' : 'Edit'}</button>
+                    {!isEditing ? (
+                        <button onClick={() => setIsEditing(true)}>Edit</button>
+                    ) : (
+                        <button onClick={handleSave}>Save</button>
+                    )}
                 </div>
             </div>
             <SmallFooter />

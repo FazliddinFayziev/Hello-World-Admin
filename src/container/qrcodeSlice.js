@@ -20,19 +20,10 @@ export const fetchSingleQrcode = createAsyncThunk('singleqrcode/api', async (pay
     return axios.get(`/singleqrcode?qrId=${id}`).then((res) => res.data)
 })
 
-// // Get Single Banner
-// export const fetchSingleBanner = createAsyncThunk('singleBanner/api', async (payload) => {
-//     const { id } = payload
-//     return axios.get(`/getsinglebanner?bannerId=${id}`).then((res) => res.data)
-// })
-
-// // Edit Banner 
-// export const fetchAndEditBanner = createAsyncThunk('editBanner/api', async (payload) => {
-//     const { id, data } = payload;
-//     const response = await axios.put(`/editbanner?bannerId=${id}`, data);
-//     return response.data;
-// });
-
+export const fetchAndEditQrCode = createAsyncThunk('editqrcode/api', async (payload) => {
+    const { id, data } = payload
+    return axios.put(`/editqrcode?idOfQrcode=${id}`, data).then((res) => res.data).catch((error) => console.log(error));
+})
 
 // Slice 
 const qrCodeSlice = createSlice({
@@ -70,6 +61,17 @@ const qrCodeSlice = createSlice({
             state.error = action.error.message
         });
 
+        // Edit Single qrcode
+        builder.addCase(fetchAndEditQrCode.pending, (state) => {
+            state.loading = true
+        });
+        builder.addCase(fetchAndEditQrCode.fulfilled, (state) => {
+            state.refetch = !state.refetch
+        });
+        builder.addCase(fetchAndEditQrCode.rejected, (state, action) => {
+            state.loading = false
+            state.error = action.error.message
+        });
 
     }
 })
