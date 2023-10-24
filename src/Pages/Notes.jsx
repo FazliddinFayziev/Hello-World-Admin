@@ -1,13 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaTrash, FaEdit, FaSave } from 'react-icons/fa';
 import '../style/notes.css';
 import { SmallFooter } from '../components';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAndUploadNotes, fetchNotes } from '../container/noteSlice';
 
 const Notes = () => {
     const [notes, setNotes] = useState([]);
     const [noteInput, setNoteInput] = useState('');
     const currentDate = new Date();
     const [editingNoteIndex, setEditingNoteIndex] = useState(null);
+    const dispatch = useDispatch();
+    const { loading, allnotes, refetch, error } = useSelector((state) => state.note)
+
+    useEffect(() => {
+        dispatch(fetchNotes())
+    }, [refetch])
+
+    const addNote = () => {
+        const data = {}
+        dispatch(fetchAndUploadNotes())
+    }
 
     const handleAddNote = () => {
         if (noteInput) {
@@ -57,7 +70,7 @@ const Notes = () => {
                     )}
                 </div>
                 <div className="notes-list">
-                    {notes.map((note, index) => (
+                    {allnotes.map((note, index) => (
                         <div className='note-item-container' key={index}>
                             <div className="note-item">
                                 <p>{note.text}</p>
@@ -78,7 +91,7 @@ const Notes = () => {
                                     </>
                                 )}
                             </div>
-                            <p className="note-date">{note.date.toLocaleString()}</p>
+                            <p className="note-date">{note.time}</p>
                         </div>
                     ))}
                 </div>

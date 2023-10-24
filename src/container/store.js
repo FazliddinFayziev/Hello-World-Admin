@@ -7,9 +7,11 @@ import deleteProductSlice from "./deleteProductSlice";
 import getOrdersSlice from "./getOrdersSlice";
 import bannerSlice from "./bannerSlice";
 import qrcodeSlice from "./qrcodeSlice";
+import noteSlice from "./noteSlice";
 
 const store = configureStore({
     reducer: {
+        note: noteSlice,
         banner: bannerSlice,
         qrcodes: qrcodeSlice,
         orders: getOrdersSlice,
