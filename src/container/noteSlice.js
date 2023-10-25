@@ -20,6 +20,18 @@ export const fetchAndUploadNotes = createAsyncThunk('noteupload/api', async (pay
     return axios.post("/uploadnote", data).then((res) => res.data)
 })
 
+// Edit single note
+export const fetchAndEditNote = createAsyncThunk('editnote/api', async (payload) => {
+    const { id, data } = payload
+    return axios.put(`/editnote?noteId=${id}`, data).then((res) => res.data)
+})
+
+// Delete single note
+export const fetchAndDeleteNote = createAsyncThunk('deletenote/api', async (payload) => {
+    const { id } = payload
+    return axios.delete(`/deletenote?noteId=${id}`).then((res) => res.data)
+})
+
 
 // Slice 
 const noteSlice = createSlice({
@@ -52,6 +64,34 @@ const noteSlice = createSlice({
             state.error = ''
         });
         builder.addCase(fetchAndUploadNotes.rejected, (state, action) => {
+            state.loading = false
+            state.error = action.error.message
+        });
+
+        // Edit note
+        builder.addCase(fetchAndEditNote.pending, (state) => {
+            state.loading = true
+        });
+        builder.addCase(fetchAndEditNote.fulfilled, (state, action) => {
+            state.loading = false
+            state.refetch = !state.refetch
+            state.error = ''
+        });
+        builder.addCase(fetchAndEditNote.rejected, (state, action) => {
+            state.loading = false
+            state.error = action.error.message
+        });
+
+        // Delete note
+        builder.addCase(fetchAndDeleteNote.pending, (state) => {
+            state.loading = true
+        });
+        builder.addCase(fetchAndDeleteNote.fulfilled, (state, action) => {
+            state.loading = false
+            state.refetch = !state.refetch
+            state.error = ''
+        });
+        builder.addCase(fetchAndDeleteNote.rejected, (state, action) => {
             state.loading = false
             state.error = action.error.message
         });

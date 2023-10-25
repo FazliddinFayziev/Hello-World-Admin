@@ -105,3 +105,10 @@
     font-weight: 600;
     padding: 10px;
 }
+
+.center__no__notes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+}
