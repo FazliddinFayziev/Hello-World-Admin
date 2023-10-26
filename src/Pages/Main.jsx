@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "../style/main.css";
-import { DashboardCards, DashboardGraph, SmallFooter, SocialCards, WeekGraph } from '../components';
+import { DashboardCards, DashboardGraph, Loading, SmallFooter, SocialCards, WeekGraph } from '../components';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchDashboard } from '../container/dashboardSlice';
 
 const Main = () => {
+    const dispatch = useDispatch();
+    const { loading, dashboard, error } = useSelector((state) => state.dashboard)
+
+    useEffect(() => {
+        dispatch(fetchDashboard())
+        console.log(dashboard)
+    }, [])
+
+    if (loading) {
+        return <Loading />
+    }
+
     return (
         <section className='main__section'>
 
@@ -12,7 +26,11 @@ const Main = () => {
                 <h1>#Hello World Dashboard</h1>
             </div>
 
-            <DashboardCards />
+            <DashboardCards
+                orders={dashboard.allOrders}
+                products={dashboard.allProducts}
+                lastWeekOrders={dashboard.lastweekOrders}
+            />
 
             <div className='both__graphs__info'>
 
@@ -21,7 +39,7 @@ const Main = () => {
                     <div className='main__graph__title'>
                         <h1>Selled products (Week)</h1>
                     </div>
-                    <WeekGraph />
+                    <WeekGraph weekOrders={dashboard.getWeeklyOrders} />
                 </div>
 
                 {/* GRAPH TWO */}
@@ -29,7 +47,7 @@ const Main = () => {
                     <div className='main__graph__title'>
                         <h1>Selled products (Month)</h1>
                     </div>
-                    <DashboardGraph />
+                    <DashboardGraph monthOrders={dashboard.getMonthlyOrders} />
                 </div>
 
             </div>

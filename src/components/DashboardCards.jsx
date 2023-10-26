@@ -3,34 +3,33 @@ import { BiGridAlt } from "react-icons/bi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { BsBarChartLine, BsFolderCheck } from "react-icons/bs";
 
-const cards = [
-    {
-        id: 0,
-        bg_color: "linear-gradient(135deg, #3498db, #1abc9c)",
-        icon: (<BiGridAlt fontSize={30} />),
-        text: 100,
-        title: "All Products",
-        main_icon: (<BsBarChartLine color='#fff' fontSize={50} />)
-    },
-    {
-        id: 1,
-        bg_color: "linear-gradient(135deg, #e74c3c, #c0392b)",
-        icon: (<IoMdNotificationsOutline fontSize={30} />),
-        text: 48,
-        title: "New Orders",
-        main_icon: (<BsBarChartLine color='#fff' fontSize={50} />)
-    },
-    {
-        id: 2,
-        bg_color: "linear-gradient(135deg, #f39c12, #e67e22)",
-        icon: (<BsFolderCheck fontSize={30} />),
-        text: 80,
-        title: "Last Week Orders",
-        main_icon: <BsBarChartLine color='#fff' fontSize={50} />
-    },
-];
-
-const DashboardCards = () => {
+const DashboardCards = ({ products, orders, lastWeekOrders }) => {
+    const cards = [
+        {
+            id: 0,
+            bg_color: "linear-gradient(135deg, #3498db, #1abc9c)",
+            icon: (<BiGridAlt fontSize={30} />),
+            text: products,
+            title: "All Products",
+            main_icon: (<BsBarChartLine color='#fff' fontSize={50} />)
+        },
+        {
+            id: 1,
+            bg_color: "linear-gradient(135deg, #e74c3c, #c0392b)",
+            icon: (<IoMdNotificationsOutline fontSize={30} />),
+            text: orders,
+            title: "All Orders",
+            main_icon: (<BsBarChartLine color='#fff' fontSize={50} />)
+        },
+        {
+            id: 2,
+            bg_color: "linear-gradient(135deg, #f39c12, #e67e22)",
+            icon: (<BsFolderCheck fontSize={30} />),
+            text: lastWeekOrders,
+            title: "LastWeek Orders",
+            main_icon: <BsBarChartLine color='#fff' fontSize={50} />
+        },
+    ];
     return (
         <div className='main__section__container'>
             {cards.map((card, index) => {

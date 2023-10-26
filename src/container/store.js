@@ -1,13 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import productSlice from "./productSlice";
-import singleProductSlice from "./singleProductSlice";
-import editProductSlice from "./editProductSlice";
-import uploadSingleProduct from "./uploadSingleProduct";
-import deleteProductSlice from "./deleteProductSlice";
-import getOrdersSlice from "./getOrdersSlice";
+import noteSlice from "./noteSlice";
 import bannerSlice from "./bannerSlice";
 import qrcodeSlice from "./qrcodeSlice";
-import noteSlice from "./noteSlice";
+import productSlice from "./productSlice";
+import dashboardSlice from "./dashboardSlice";
+import getOrdersSlice from "./getOrdersSlice";
+import editProductSlice from "./editProductSlice";
+import singleProductSlice from "./singleProductSlice";
+import deleteProductSlice from "./deleteProductSlice";
+import uploadSingleProduct from "./uploadSingleProduct";
 
 const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
         qrcodes: qrcodeSlice,
         orders: getOrdersSlice,
         products: productSlice,
+        dashboard: dashboardSlice,
         editProduct: editProductSlice,
         singleProduct: singleProductSlice,
         deleteProduct: deleteProductSlice,

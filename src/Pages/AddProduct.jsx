@@ -27,7 +27,7 @@ const AddProduct = () => {
             addProduct.size.length === 0 ||
             addProduct.images.length === 0
         ) {
-            // Display an error or return early to prevent the dispatch
+            // Display error
             return alert('Please fill in all required fields and upload at least one image.');
         }
 

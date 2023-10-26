@@ -13,51 +13,36 @@ import {
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-const data = {
-    labels: ["Week-1", "Week-2", "Week-3", "Week-4"],
-    datasets: [
-        {
-            label: "Simple",
-            data: [28, 12, 31, 20],
-            fill: true,
-            backgroundColor: "rgba(75,192,192,1)",
-            borderColor: "rgba(75,192,192,1)",
-        },
-        {
-            label: "Humble",
-            data: [8, 10, 15, 12],
-            fill: false,
-            backgroundColor: "green",
-            borderColor: "green"
-        },
-        {
-            label: "Elegant",
-            data: [2, 8, 5, 6],
-            fill: false,
-            backgroundColor: "orange",
-            borderColor: "orange"
-        }
-    ]
-};
-
-const config = {
-    type: 'line',
-    data: data,
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'top',
-            },
-            title: {
-                display: true,
-                text: 'Chart.js Line Chart'
+const DashboardGraph = ({ monthOrders }) => {
+    const data = {
+        labels: ["Week-1", "Week-2", "Week-3", "Week-4"],
+        datasets: [
+            {
+                label: "Monthly Orders",
+                data: monthOrders,
+                fill: false,
+                backgroundColor: "orange",
+                borderColor: "orange"
             }
-        }
-    },
-};
+        ]
+    };
 
-const DashboardGraph = () => {
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Chart.js Line Chart'
+                }
+            }
+        },
+    };
     return (
         <Line
             data={data}

@@ -21,6 +21,7 @@ const EditImageUpload = () => {
 
     const handleImageDelete = (index) => {
         const updatedImages = images.filter((_, i) => i !== index);
+        setSingleImage(updatedImages)
         setSingleItem({ ...singleItem, images: updatedImages });
     };
 

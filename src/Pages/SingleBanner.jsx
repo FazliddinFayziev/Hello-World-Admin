@@ -49,6 +49,7 @@ const SingleBanner = () => {
 
     const handleImageDelete = (index) => {
         const updatedImages = images.filter((_, i) => i !== index);
+        setSingleImage(updatedImages)
         setSingleBanner({ ...singleBanner, images: updatedImages });
     };
 

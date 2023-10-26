@@ -7,7 +7,6 @@ import { fetchAndDeleteNote, fetchAndEditNote, fetchAndUploadNotes, fetchNotes }
 import { formatCurrentTime } from '../functions/functions';
 
 const Notes = () => {
-    const [notes, setNotes] = useState([]);
     const [noteInput, setNoteInput] = useState('');
     const [noteId, setNoteId] = useState('');
     const [showCart, setShowCart] = useState(false);
@@ -34,24 +33,18 @@ const Notes = () => {
         dispatch(fetchAndDeleteNote({ id: deleteId }))
     }
 
-    // const updateNotes = (id) => {
-    //     setEditingNoteId(id)
-    //     const data = {text}
-    //     dispatch(fetchAndEditNote({id, data}))
-    // }
-
-
-    const handleEditNote = (id) => {
+    const updateNotes = (id) => {
         setEditingNoteId(id);
-        setNoteInput(notes[id].text);
-    };
+        const value = allnotes.find((note) => note._id === id)
+        setNoteInput(value.text)
+    }
 
     const handleSaveNote = () => {
-        // const updatedNotes = [...notes];
-        // updatedNotes[editingNoteIndex].text = noteInput;
-        // setNotes(updatedNotes);
-        // setEditingNoteIndex(null);
-        // setNoteInput('');
+        const value = allnotes.find((note) => note._id === editingNoteId)
+        const data = { text: noteInput, time: value.time }
+        dispatch(fetchAndEditNote({ id: editingNoteId, data }))
+        setNoteInput('')
+        setEditingNoteId(null)
     };
 
     if (loading) {
@@ -68,6 +61,9 @@ const Notes = () => {
 
     return (
         <>
+            <div className='manage__orders__main__title'>
+                <h3>Important Notes</h3>
+            </div>
             <div className="notes-container">
                 <div className='notes__input__container'>
                     <div className="notes-input">
@@ -101,7 +97,7 @@ const Notes = () => {
                                     </button>
                                 ) : (
                                     <>
-                                        <button className='edit-button-notes' onClick={() => handleEditNote(note._id)}>
+                                        <button className='edit-button-notes' onClick={() => updateNotes(note._id)}>
                                             <FaEdit />
                                         </button>
                                         <button className='delete-button-notes' onClick={() => { setShowCart(true); setNoteId(note._id) }}>

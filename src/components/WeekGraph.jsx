@@ -13,51 +13,36 @@ import {
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-const data = {
-    labels: ["Mon", "Tue", "Wen", "Thu", "Friday", "Sat", "Sun"],
-    datasets: [
-        {
-            label: "Simple",
-            data: [40, 53, 85, 41, 44, 65, 80],
-            fill: true,
-            backgroundColor: "rgba(75,192,192,1)",
-            borderColor: "rgba(75,192,192,1)",
-        },
-        {
-            label: "Humble",
-            data: [33, 25, 35, 51, 54, 76],
-            fill: false,
-            backgroundColor: "green",
-            borderColor: "green"
-        },
-        {
-            label: "Elegant",
-            data: [10, 20, 30, 32, 20, 60],
-            fill: false,
-            backgroundColor: "orange",
-            borderColor: "orange"
-        }
-    ]
-};
-
-const config = {
-    type: 'line',
-    data: data,
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'top',
+const WeekGraph = ({ weekOrders }) => {
+    const data = {
+        labels: ["Mon", "Tue", "Wen", "Thu", "Friday", "Sat", "Sun"],
+        datasets: [
+            {
+                label: "Weekly Orders",
+                data: weekOrders,
+                fill: true,
+                backgroundColor: "rgba(75,192,192,1)",
+                borderColor: "rgba(75,192,192,1)",
             },
-            title: {
-                display: true,
-                text: 'Chart.js Line Chart'
-            }
-        }
-    },
-};
+        ]
+    };
 
-const WeekGraph = () => {
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Chart.js Line Chart'
+                }
+            }
+        },
+    };
     return (
         <Line
             data={data}

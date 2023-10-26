@@ -40,7 +40,7 @@ const Orders = () => {
                             <div className={`${order.shipped ? 'closed__orders__dot' : 'closed__orders__dot false'}`}></div>
                             <AiOutlineShoppingCart color='#3078ff' fontSize={20} />
                             <p>Order - {index + 1}</p>
-                            <p>08/18/2023</p>
+                            <p>{order.time}</p>
                             <FcNext
                                 onClick={() => handleOpen(index)}
                                 className={`orders__icon ${openIndex === index ? 'rotate' : ''}`}
@@ -63,7 +63,7 @@ const Orders = () => {
                                                 />
                                                 <p>{item.name}</p>
                                                 <p>{item.price} UZS</p>
-                                                <p>Elegant</p>
+                                                <p>{item.choosenSize}</p>
                                                 <p>Quantity: {item.quantity}</p>
                                             </div>
                                         ))}
