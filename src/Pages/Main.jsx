@@ -1,20 +1,39 @@
 import React, { useEffect } from 'react';
 import "../style/main.css";
-import { DashboardCards, DashboardGraph, Loading, SmallFooter, SocialCards, WeekGraph } from '../components';
+import { DashboardCards, DashboardGraph, Error, Loading, SmallFooter, SocialCards, WeekGraph } from '../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDashboard } from '../container/dashboardSlice';
+import { useGlobalContext } from '../context/context';
 
 const Main = () => {
     const dispatch = useDispatch();
     const { loading, dashboard, error } = useSelector((state) => state.dashboard)
+    const { dashboardItems, setDashboardItems } = useGlobalContext();
+    const { orders, products, lastweekOrders, weekOrders, monthOrders } = dashboardItems
 
     useEffect(() => {
-        dispatch(fetchDashboard())
-        console.log(dashboard)
-    }, [])
+        if (!orders && !products && !lastweekOrders && !weekOrders.length && !monthOrders.length) {
+            dispatch(fetchDashboard());
+        }
+    }, []);
+
+    useEffect(() => {
+        if (dashboard) {
+            setDashboardItems({
+                orders: dashboard.allOrders,
+                products: dashboard.allProducts,
+                lastweekOrders: dashboard.lastweekOrders,
+                weekOrders: dashboard.getWeeklyOrders,
+                monthOrders: dashboard.getMonthlyOrders,
+            })
+        }
+    }, [dashboard])
 
     if (loading) {
         return <Loading />
+    }
+    if (error) {
+        return <Error />
     }
 
     return (
@@ -27,9 +46,9 @@ const Main = () => {
             </div>
 
             <DashboardCards
-                orders={dashboard.allOrders}
-                products={dashboard.allProducts}
-                lastWeekOrders={dashboard.lastweekOrders}
+                orders={orders}
+                products={products}
+                lastWeekOrders={lastweekOrders}
             />
 
             <div className='both__graphs__info'>
@@ -39,7 +58,7 @@ const Main = () => {
                     <div className='main__graph__title'>
                         <h1>Selled products (Week)</h1>
                     </div>
-                    <WeekGraph weekOrders={dashboard.getWeeklyOrders} />
+                    <WeekGraph weekOrders={weekOrders} />
                 </div>
 
                 {/* GRAPH TWO */}
@@ -47,7 +66,7 @@ const Main = () => {
                     <div className='main__graph__title'>
                         <h1>Selled products (Month)</h1>
                     </div>
-                    <DashboardGraph monthOrders={dashboard.getMonthlyOrders} />
+                    <DashboardGraph monthOrders={monthOrders} />
                 </div>
 
             </div>

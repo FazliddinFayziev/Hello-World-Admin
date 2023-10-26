@@ -15,6 +15,14 @@ const AppContext = React.createContext();
 
 export const AppProvider = ({ children }) => {
 
+    const [dashboardItems, setDashboardItems] = useState({
+        orders: 0,
+        products: 0,
+        lastweekOrders: 0,
+        weekOrders: [],
+        monthOrders: [],
+    })
+
     const [addProduct, setAddProduct] = useState({
         name: '',
         price: '',
@@ -83,8 +91,9 @@ export const AppProvider = ({ children }) => {
         addQrcode, setAddQrcode,
         singleItem, setSingleItem,
         addProduct, setAddProduct,
-        singleQrcode, setSingleQrcode,
         singleBanner, setSingleBanner,
+        singleQrcode, setSingleQrcode,
+        dashboardItems, setDashboardItems,
     }}>
         {children}
     </AppContext.Provider>
