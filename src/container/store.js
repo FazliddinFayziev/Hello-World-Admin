@@ -9,10 +9,12 @@ import editProductSlice from "./editProductSlice";
 import singleProductSlice from "./singleProductSlice";
 import deleteProductSlice from "./deleteProductSlice";
 import uploadSingleProduct from "./uploadSingleProduct";
+import adminSlice from "./adminSlice";
 
 const store = configureStore({
     reducer: {
         note: noteSlice,
+        admin: adminSlice,
         banner: bannerSlice,
         qrcodes: qrcodeSlice,
         orders: getOrdersSlice,

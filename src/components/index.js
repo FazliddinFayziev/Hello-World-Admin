@@ -5,6 +5,7 @@ export { default as Banners } from "./Banners";
 export { default as Sidebar } from "./Sidebar";
 export { default as Loading } from "./Loading";
 export { default as EditData } from "./EditData";
+export { default as ErrorCart } from "./ErrorCart";
 export { default as WeekGraph } from "./WeekGraph";
 export { default as EditImages } from "./EditImages";
 export { default as UploadIcons } from "./UploadIcons";

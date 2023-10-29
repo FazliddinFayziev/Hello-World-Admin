@@ -15,6 +15,9 @@ const AppContext = React.createContext();
 
 export const AppProvider = ({ children }) => {
 
+    const [user, setUser] = useState([]);
+    const [checkAdmin, setCheckAdmin] = useState(true);
+
     const [dashboardItems, setDashboardItems] = useState({
         orders: 0,
         products: 0,
@@ -88,11 +91,13 @@ export const AppProvider = ({ children }) => {
 
     return <AppContext.Provider value={{
         qrcodeValue,
+        user, setUser,
         addQrcode, setAddQrcode,
-        singleItem, setSingleItem,
+        checkAdmin, setCheckAdmin,
         addProduct, setAddProduct,
-        singleBanner, setSingleBanner,
+        singleItem, setSingleItem,
         singleQrcode, setSingleQrcode,
+        singleBanner, setSingleBanner,
         dashboardItems, setDashboardItems,
     }}>
         {children}
