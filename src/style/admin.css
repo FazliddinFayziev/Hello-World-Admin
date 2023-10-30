@@ -8,17 +8,20 @@
 }
 
 .admin .user-list {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+    margin: 20px auto;
+    width: 80%;
 }
 
 .admin .user-card {
-    background-color: #f4f4f4;
-    padding: 10px;
-    border: 1px solid #ddd;
-    margin: 10px;
-    width: 300px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    border-color: #007bff;
+    box-shadow: 0 0 10px #719ECE;
+    padding: 30px;
+    margin: 20px 0;
 }
 
 .admin h3 {
@@ -26,6 +29,65 @@
     margin: 0;
 }
 
+.span__admin {
+    font-weight: 700;
+}
+
 .admin p {
     margin: 5px 0;
+    font-weight: 500;
+}
+
+.manage__admin__access {
+    cursor: pointer;
+    margin: 10px 0;
+    width: 20px;
+}
+
+.admin__text__true {
+    color: green;
+}
+
+.admin__text__false {
+    color: red;
+}
+
+.delete__admin__user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete__admin__user button {
+    padding: 5px 10px;
+    border: none;
+    background-color: red;
+    color: #fff;
+    cursor: pointer;
+}
+
+.no__admin__users {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+@media (min-width: 576px) {
+    .admin .user-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+    .admin .user-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .admin .user-list {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
