@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useGlobalContext } from '../context/context';
 import { formatPrice } from '../functions/functions';
 
-const EditData = () => {
+const EditData = ({ user }) => {
     const { singleItem, setSingleItem } = useGlobalContext();
     const { name, category, option, price } = singleItem
     const [editMode, setEditMode] = useState(false);
@@ -56,13 +56,16 @@ const EditData = () => {
                     )}
                 </div>
             </div>
-            <div className='edit_data_buttons'>
-                {editMode ? (
-                    <button className='save-button' onClick={handleSaveClick}>Save Data</button>
-                ) : (
-                    <button className='edit-button' onClick={handleEditClick}>Edit Data</button>
-                )}
-            </div>
+
+            {user?.data?.admin && (
+                <div className='edit_data_buttons'>
+                    {editMode ? (
+                        <button className='save-button' onClick={handleSaveClick}>Save Data</button>
+                    ) : (
+                        <button className='edit-button' onClick={handleEditClick}>Edit Data</button>
+                    )}
+                </div>
+            )}
         </div>
     );
 }

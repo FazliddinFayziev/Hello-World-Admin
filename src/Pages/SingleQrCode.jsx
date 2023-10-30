@@ -9,7 +9,7 @@ import { filterIcons } from '../functions/functions';
 
 const SingleQrCode = () => {
     const [showCart, setShowCart] = useState(false);
-    const { singleQrcode, setSingleQrcode } = useGlobalContext();
+    const { user, singleQrcode, setSingleQrcode } = useGlobalContext();
     const navigate = useNavigate();
     const [isEditing, setIsEditing] = useState(false);
     const { qrcodeId } = useParams();
@@ -107,17 +107,21 @@ const SingleQrCode = () => {
                     <RenderIcons singleQrcode={singleQrcode} setSingleQrcode={setSingleQrcode} icons={singleQrcode.icons} isEditing={isEditing} />
 
                 </div>
-                <div className="edit-button-container">
-                    {!isEditing ? (
-                        <button onClick={() => setIsEditing(true)}>Edit</button>
-                    ) : (
-                        <button onClick={handleSave}>Save</button>
-                    )}
+                {user?.data?.admin && (
+                    <div className="edit-button-container">
+                        {!isEditing ? (
+                            <button onClick={() => setIsEditing(true)}>Edit</button>
+                        ) : (
+                            <button onClick={handleSave}>Save</button>
+                        )}
+                    </div>
+                )}
+            </div>
+            {user?.data?.admin && (
+                <div onClick={() => setShowCart(true)} className='delete__qr__code'>
+                    <button>Delete QR code</button>
                 </div>
-            </div>
-            <div onClick={() => setShowCart(true)} className='delete__qr__code'>
-                <button>Delete QR code</button>
-            </div>
+            )}
             <SmallFooter />
         </>
     );

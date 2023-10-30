@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useGlobalContext } from '../context/context';
 
-const EditDescription = () => {
+const EditDescription = ({ user }) => {
     const { singleItem, setSingleItem } = useGlobalContext();
     const { descuz, descru, desceng } = singleItem;
     const [editMode, setEditMode] = useState(false);
@@ -56,10 +56,12 @@ const EditDescription = () => {
                     <p>{desceng}</p>
                 )}
             </div>
-            {editMode ? (
-                <button onClick={handleSave}>Save</button>
-            ) : (
-                <button onClick={handleEdit}>Edit</button>
+            {user?.data?.admin && (
+                editMode ? (
+                    <button onClick={handleSave}>Save</button>
+                ) : (
+                    <button onClick={handleEdit}>Edit</button>
+                )
             )}
         </div>
     );

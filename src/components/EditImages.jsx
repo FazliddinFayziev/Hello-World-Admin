@@ -2,7 +2,7 @@ import React from 'react';
 import { AiFillDelete } from "react-icons/ai";
 import { useGlobalContext } from '../context/context';
 
-const EditImages = () => {
+const EditImages = ({ user }) => {
     const { singleItem, setSingleItem } = useGlobalContext();
     const { imageUrls } = singleItem
 
@@ -23,7 +23,7 @@ const EditImages = () => {
                     {imageUrls && imageUrls.map((image, index) => (
                         <div className='image-item' key={index}>
                             <img src={image} alt='product-image' />
-                            {imageUrls.length > 1 && (
+                            {imageUrls.length > 1 && user?.data?.admin && (
                                 <div onClick={() => handleDelete(index)} className='delete__edit__image'>
                                     <AiFillDelete fontSize={15} color='red' />
                                 </div>

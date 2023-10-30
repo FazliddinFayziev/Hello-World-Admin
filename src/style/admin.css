@@ -73,6 +73,23 @@
 }
 
 
+/* ADD USER */
+.admin__add__user__container {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+}
+
+.admin__add__user__container button {
+    padding: 10px 20px;
+    font-weight: 700;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
 
 @media (min-width: 576px) {
     .admin .user-list {

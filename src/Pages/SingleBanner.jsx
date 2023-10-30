@@ -9,7 +9,7 @@ import { fetchAndEditBanner, fetchSingleBanner } from '../container/bannerSlice'
 import { useGlobalContext } from '../context/context';
 
 const SingleBanner = () => {
-    const { singleBanner, setSingleBanner } = useGlobalContext();
+    const { user, singleBanner, setSingleBanner } = useGlobalContext();
     const { images } = singleBanner
     const [isEditing, setIsEditing] = useState(false);
     const [singleImage, setSingleImage] = useState([])
@@ -129,32 +129,35 @@ const SingleBanner = () => {
 
                     {/* Choose Image Upload */}
 
-                    <div className="image-upload-container">
-                        <div className="chosen-image-preview">
-                            {chosenImagePreview && <img src={chosenImagePreview} alt="Chosen" />}
+                    {user?.data?.admin && (
+                        <div className="image-upload-container">
+                            <div className="chosen-image-preview">
+                                {chosenImagePreview && <img src={chosenImagePreview} alt="Chosen" />}
+                            </div>
+                            <div className="image-upload-main">
+                                <label className="custom-file-input">
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleImageSelection}
+                                    />
+                                    <span>Choose Image</span>
+                                </label>
+                                <button onClick={handleImageUpload}>Upload</button>
+                            </div>
+                            <div className="uploaded-images">
+                                {singleImage.length > 0 && singleImage.map((imageUrl, index) => (
+                                    <div className="uploaded-image" key={index}>
+                                        <img src={imageUrl} alt={`Uploaded ${index}`} />
+                                        <button onClick={() => handleImageDelete(index)}>
+                                            <MdDelete />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                        <div className="image-upload-main">
-                            <label className="custom-file-input">
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleImageSelection}
-                                />
-                                <span>Choose Image</span>
-                            </label>
-                            <button onClick={handleImageUpload}>Upload</button>
-                        </div>
-                        <div className="uploaded-images">
-                            {singleImage.length > 0 && singleImage.map((imageUrl, index) => (
-                                <div className="uploaded-image" key={index}>
-                                    <img src={imageUrl} alt={`Uploaded ${index}`} />
-                                    <button onClick={() => handleImageDelete(index)}>
-                                        <MdDelete />
-                                    </button>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                    )}
+
                 </div>
 
             </div>
@@ -210,18 +213,22 @@ const SingleBanner = () => {
                         )}
                     </div>
                 </div>
-                <div className='image-buttons'>
-                    {!isEditing && (
-                        <button className='edit-button' onClick={() => setIsEditing(true)}>
-                            Edit Banner Text
-                        </button>
-                    )}
-                </div>
-                <div className='image-buttons'>
-                    <button onClick={saveAll} className='edit-button'>
-                        Save All Data
-                    </button>
-                </div>
+                {user?.data?.admin && (
+                    <>
+                        <div className='image-buttons'>
+                            {!isEditing && (
+                                <button className='edit-button' onClick={() => setIsEditing(true)}>
+                                    Edit Banner Text
+                                </button>
+                            )}
+                        </div>
+                        <div className='image-buttons'>
+                            <button onClick={saveAll} className='edit-button'>
+                                Save All Data
+                            </button>
+                        </div>
+                    </>
+                )}
             </div>
             <SmallFooter />
         </div>

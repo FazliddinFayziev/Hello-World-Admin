@@ -6,20 +6,19 @@ import { MdScreenshotMonitor } from "react-icons/md";
 import { BsShop, BsQrCodeScan } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 
+const Sidebar = ({ user, isSidebarVisible, setIsSidebarVisible }) => {
 
-const sidebarLinks = [
-    { icon: (<AiFillHome />), name: 'Home', link: '/' },
-    { icon: (<MdScreenshotMonitor />), name: 'Banner', link: '/banner' },
-    { icon: (<FaSitemap />), name: 'Products', link: '/products' },
-    { icon: (<BiSolidAddToQueue />), name: 'Add Product', link: '/addproduct' },
-    { icon: (<BsShop />), name: 'All Orders', link: '/allorders' },
-    { icon: (<AiOutlineShoppingCart />), name: 'Manage Orders', link: '/manage' },
-    { icon: (<BiNotepad />), name: 'Important Notes', link: '/notes' },
-    { icon: (<AiOutlineQrcode />), name: 'All QR codes', link: '/allqrcodes' },
-    { icon: (<BsQrCodeScan />), name: 'Add New QR code', link: '/addqrcodes' },
-];
-
-const Sidebar = ({ isSidebarVisible, setIsSidebarVisible }) => {
+    const sidebarLinks = [
+        { icon: (<AiFillHome />), name: 'Home', link: '/' },
+        { icon: (<MdScreenshotMonitor />), name: 'Banner', link: '/banner' },
+        { icon: (<FaSitemap />), name: 'Products', link: '/products' },
+        user?.data?.admin && { icon: (<BiSolidAddToQueue />), name: 'Add Product', link: '/addproduct' },
+        { icon: (<BsShop />), name: 'All Orders', link: '/allorders' },
+        { icon: (<AiOutlineShoppingCart />), name: 'Manage Orders', link: '/manage' },
+        { icon: (<BiNotepad />), name: 'Important Notes', link: '/notes' },
+        { icon: (<AiOutlineQrcode />), name: 'All QR codes', link: '/allqrcodes' },
+        user?.data?.admin && { icon: (<BsQrCodeScan />), name: 'Add New QR code', link: '/addqrcodes' },
+    ].filter(Boolean);
 
     const [activeLink, setActiveLink] = useState(0);
 

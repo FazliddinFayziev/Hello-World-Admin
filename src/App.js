@@ -4,7 +4,6 @@ import { Home, Login } from "./Pages";
 import "./index.css";
 
 function App() {
-
   return (
     <>
       <Routes>

@@ -10,7 +10,7 @@ import { deleteProduct } from '../container/deleteProductSlice';
 
 const SingleProduct = () => {
     const [showCart, setShowCart] = useState(false);
-    const { singleItem, setSingleItem } = useGlobalContext();
+    const { user, singleItem, setSingleItem } = useGlobalContext();
     const { productId } = useParams();
     const { sLoading, sProduct, sError } = useSelector((state) => state.singleProduct)
     const { loading, error, refetch } = useSelector((state) => state.editProduct)
@@ -96,24 +96,30 @@ const SingleProduct = () => {
                 <div className='main__title__section'>
                     <h3>Single Product</h3>
                 </div>
-                <EditImages />
+                <EditImages user={user} />
                 <div className='upload__image__title'>
                     <h4>Upload New Images</h4>
                 </div>
-                <EditImageUpload />
+                {user?.data?.admin && (
+                    <EditImageUpload />
+                )}
             </div>
-            <EditData />
-            <EditSizeColor />
-            <EditDescription />
+            <EditData user={user} />
+            {user?.data?.admin && (
+                <EditSizeColor />
+            )}
+            <EditDescription user={user} />
 
-            <div className='save__delete__product'>
-                <div className='save__delete__product__buttons'>
-                    <button onClick={saveAll} style={{ backgroundColor: "#0095ff" }}>Save All</button>
-                    <button onClick={() => setShowCart(true)} style={{ backgroundColor: "#ff0000" }}>
-                        Delete
-                    </button>
+            {user?.data?.admin && (
+                <div className='save__delete__product'>
+                    <div className='save__delete__product__buttons'>
+                        <button onClick={saveAll} style={{ backgroundColor: "#0095ff" }}>Save All</button>
+                        <button onClick={() => setShowCart(true)} style={{ backgroundColor: "#ff0000" }}>
+                            Delete
+                        </button>
+                    </div>
                 </div>
-            </div>
+            )}
 
             <SmallFooter />
         </>

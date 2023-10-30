@@ -20,6 +20,7 @@ import Banner from './Banner';
 import Notes from './Notes';
 import Admin from './Admin';
 import Main from './Main';
+import Register from './Register';
 
 
 const Home = () => {
@@ -66,7 +67,7 @@ const Home = () => {
             <Header isSidebarVisible={isSidebarVisible} setIsSidebarVisible={setIsSidebarVisible} />
 
             {/* <!--=============== SIDEBAR ===============--> */}
-            <Sidebar isSidebarVisible={isSidebarVisible} setIsSidebarVisible={setIsSidebarVisible} />
+            <Sidebar user={user} isSidebarVisible={isSidebarVisible} setIsSidebarVisible={setIsSidebarVisible} />
 
             {/* <!--=============== MAIN ===============--> */}
             <main className="main container" id="main">
@@ -76,14 +77,15 @@ const Home = () => {
                     <Route path='/banner/:bannerId' element={<SingleBanner />} />
                     <Route path='/products' element={<Products />} />
                     <Route path='/products/:productId' element={<SingleProduct />} />
-                    <Route path='/addproduct' element={<AddProduct />} />
+                    <Route path='/addproduct' element={user?.data?.admin ? <AddProduct /> : <Navigate to="/" />} />
                     <Route path='/allorders' element={<Orders />} />
                     <Route path='/manage' element={<Manage />} />
                     <Route path='/notes' element={<Notes />} />
                     <Route path='/allqrcodes' element={<AllQrCodes />} />
                     <Route path='/allqrcodes/:qrcodeId' element={<SingleQrCode />} />
                     <Route path='/addqrcodes' element={<AddQrCode />} />
-                    <Route path='/admin' element={user.data.admin ? <Admin /> : <Navigate to="/" />} />
+                    <Route path='/admin' element={user?.data?.admin ? <Admin /> : <Navigate to="/" />} />
+                    <Route path='/signup' element={user?.data?.admin ? <Register /> : <Navigate to="/" />} />
                 </Routes>
             </main>
 

@@ -4,6 +4,7 @@ import "../style/admin.css";
 import axios from '../api/axios';
 import { Cart, ChangeAdminCart, Error, Loading } from '../components';
 import { useGlobalContext } from '../context/context';
+import { Link } from 'react-router-dom';
 
 const Admin = () => {
 
@@ -110,6 +111,12 @@ const Admin = () => {
 
     return (
         <div className="admin">
+            <div className='main__title__section'>
+                <h1>Add User</h1>
+            </div>
+            <Link to={'/signup'} className='admin__add__user__container'>
+                <button>Add User</button>
+            </Link>
             <div className='main__title__section'>
                 <h1>Admin Managment</h1>
             </div>
